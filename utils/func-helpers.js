@@ -1,0 +1,1 @@
+exports.validatorJsonData = (errors) => ({errors: errors.array(), errMsg: 'Вы не прошли валидацию'});

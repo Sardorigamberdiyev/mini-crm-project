@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { registerValidator } = require('../utils/validator');
-const { errMsg500, errMsgLogin400 } = require('../utils/variables');
+const { errMsg500, errMsgLogin400, msgLogin200 } = require('../utils/variables');
 const { validatorJsonData } = require('../utils/func-helpers');
 const User = require('../models/user');
 const router = Router();
@@ -17,7 +17,7 @@ router.post('/register', registerValidator, async (req, res) => {
         
         const { login, password, firstName, lastName, role } = req.body;
 
-        const candidate = User.findOne({ login: login.trim() });
+        const candidate = await User.findOne({ login: login.trim() });
         if (candidate) return res.status(400).json('Пользователь с таким логином уже существует!');
         
         const hashPassword = await bcrypt.hash(password, 12);
@@ -50,7 +50,9 @@ router.post('/login', async (req, res) => {
         const payload = { userId: user._id.toString() };
         const accessToken = jwt.sign(payload, config.get('accessJwtSecretKey'), { expiresIn: '1h' });
         const refreshToken = jwt.sign(payload, config.get('refreshJwtSecretKey'));
-        res.status(200).json({ accessToken, refreshToken });
+        res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+        res.cookie('refresh_token', refreshToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+        res.status(200).json(msgLogin200);
     } catch (e) {
         res.status(500).json(errMsg500);
     }

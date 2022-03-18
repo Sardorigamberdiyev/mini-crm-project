@@ -1,8 +1,8 @@
 const { body } = require('express-validator');
 
 exports.registerValidator = [
-    body('firstName', 'Поля имя обязательное').isEmpty(),
-    body('lastName', 'Поля фамилия обязятельное').isEmpty(),
+    body('firstName', 'Поля имя обязательное').isLength({ min: 1 }),
+    body('lastName', 'Поля фамилия обязятельное').isLength({ min: 1 }),
     body('login', 'Введите коректное значение').isAlphanumeric().isLength({ min: 3, max: 24 }),
     body('password', 'Пароль должен содержать мин. 1-буква, мин. 1-цифру, мин. 8-символов').matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
     body('confirm').custom((value, { req }) => {

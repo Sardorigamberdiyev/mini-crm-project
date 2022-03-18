@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 module.exports = (req, res, next) => {
-    const authorization = req.headers.authorization || null;
-    const token = authorization ? authorization.split(' ')[1] : null;
+    const cookies = req.cookies;
     if (!token) return res.status(401).json({ errMsg: 'Нет авторизации' });
 
     jwt.verify(token, config.get('accessJwtSecretKey', (err, decoded) => {

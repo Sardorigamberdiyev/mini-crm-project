@@ -2,12 +2,20 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 module.exports = (req, res, next) => {
-    const cookies = req.cookies;
-    if (!token) return res.status(401).json({ errMsg: 'Нет авторизации' });
+    const { access_token } = req.cookies;
+    if (!access_token) {
+        res.cookie('logged_in', 'no');
+        return res.status(401).json({ errMsg: 'Нет авторизации' });
+    }
+    
+    jwt.verify(access_token, config.get('accessJwtSecretKey'), (err, { userId }) => {
+        if (err) {
+            res.cookie('logged_in', 'no');
+            return res.status(403).json({ errMsg: 'Вам нет доступа' });
+        }
 
-    jwt.verify(token, config.get('accessJwtSecretKey', (err, decoded) => {
-        if (err) return res.status(403).json({ errMsg: 'Вам нет доступа' });
-        req.user = decoded._id;
+        req.user = { userId };
+        res.cookie('logged_in', 'yes');
         next();
-    }))
+    })
 }

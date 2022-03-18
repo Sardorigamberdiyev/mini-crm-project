@@ -15,4 +15,9 @@ exports.registerValidator = [
         if (!roles.includes(value)) throw new Error('Не коректный роль. (user)');
         return true;
     })
+];
+
+exports.loginValidator = [
+    body('login', 'Введите логин').isLength({ min: 1 }),
+    body('password', 'Введите пароль').isLength({ min: 1 })
 ]

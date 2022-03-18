@@ -2,18 +2,23 @@ const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const app = express();
-const authRoutes = require('./routes/auth');
 
+const isAuthMiddleware = require('./middlewares/isAuth');
+const authRoutes = require('./routes/auth');
+const tokenRoutes = require('./routes/token');
+
+const app = express();
 const PORT = config.get('port') || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use((req, res, next) => {
-    console.log(req.cookies);
-    next();
-});
 app.use('/api', authRoutes);
+app.use('/api/token', tokenRoutes)
+
+app.get('/api/system', isAuthMiddleware, (req, res) => {
+    console.log(req.user);
+    res.status(200).json('Hello')
+});
 
 start();
 async function start() {

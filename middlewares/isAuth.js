@@ -1,20 +1,17 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const { deleteTokenAndClearCookies } = require('../utils/func-helpers');
+const { errMsg403 } = require('../utils/variables');
 
 module.exports = (req, res, next) => {
-    const { access_token } = req.cookies;
-    if (!access_token) {
-        res.cookie('logged_in', 'no');
-        return res.status(401).json({ errMsg: 'Нет авторизации' });
-    }
-    
-    jwt.verify(access_token, config.get('accessJwtSecretKey'), (err, { userId }) => {
-        if (err) {
-            res.cookie('logged_in', 'no');
-            return res.status(403).json({ errMsg: 'Вам нет доступа' });
-        }
+    const { access_token, refresh_token } = req.cookies;
 
-        req.user = { userId };
+    if (!access_token) return deleteTokenAndClearCookies(res, refresh_token, 401);
+    
+    jwt.verify(access_token, config.get('accessJwtSecretKey'), (err, decoded) => {
+        if (err) return res.status(403).json(errMsg403);
+
+        req.user = { userId: decoded.userId };
         res.cookie('logged_in', 'yes');
         next();
     })

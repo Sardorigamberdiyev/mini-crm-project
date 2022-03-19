@@ -1,6 +1,6 @@
 {
     "port": 5000,
-    "mongoUri": "mongodb://localhost:27017,localhost:27018,localhost:27019/crm",
+    "mongoUri": "mongodb://sardor:123456@localhost:27017,localhost:27018,localhost:27019/crm?authSource=admin",
     "accessJwtSecretKey": "9OOKdFmUuTLDqg2gdWjWyJgyYDe7MXSDJsf0OepN7E-MAQ1OEUAC5EdyC0mFZbi3b9F7H4fxOxgif2nr8yD1HVRE_8nK6o9HDxsdG2944NFSZQzdCuxpIaUcvfSXTVGbuzP38JkbhOj4rhn7rMcQMmrv44fxQYuMycOCAopUCO0",
     "refreshJwtSecretKey": "ux0OYzkiEMfWXglE-Ku3TFrOc7_9_9WDcAjosYSwm3t191hOLYCiVA3iWAo_FW0r-lXHSchjjcu19bN5ZEww3ETwRdgR1PWZ7X8pVkJ2qWIQq94Ky6LI6PaWcGwv-EP5p9cCWisntUyx5Vdbx-SDLEf9hVgirsLcehSdummO_zM"
 }

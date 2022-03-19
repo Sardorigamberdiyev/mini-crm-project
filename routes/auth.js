@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const { registerValidator, loginValidator } = require('../utils/validator');
 const { errMsg500, errMsgLogin400, msgLogin200 } = require('../utils/variables');
-const { validatorJsonData } = require('../utils/func-helpers');
+const { validatorJsonData, deleteTokenAndClearCookies } = require('../utils/func-helpers');
 const isAuthMiddleware = require('../middlewares/isAuth');
 const User = require('../models/user');
 const Token = require('../models/token');
@@ -60,7 +60,7 @@ router.post('/login', loginValidator, async (req, res) => {
         const newRefreshToken = { userId: user._id, refreshToken };
         await (new Token(newRefreshToken)).save();
 
-        const cookieAccessOption = { httpOnly: true, maxAge: 30 * 1000 };
+        const cookieAccessOption = { httpOnly: true };
         const cookieRefreshOption = { httpOnly: true, maxAge: 1000 * 60 };
         res.cookie('access_token', accessToken, cookieAccessOption);
         res.cookie('refresh_token', refreshToken, cookieRefreshOption);
@@ -73,14 +73,8 @@ router.post('/login', loginValidator, async (req, res) => {
 
 router.delete('/logout', isAuthMiddleware, async (req, res) => {
     try {
-        const { userId } = req.user;
         const { refresh_token } = req.cookies;
-        await Token.deleteOne({ userId, refreshToken: refresh_token });
-    
-        res.clearCookie('access_token');
-        res.clearCookie('refresh_token');
-        res.cookie('logged_in', 'no');
-        res.status(200).json('Вы вышли из системы');
+        deleteTokenAndClearCookies(res, refresh_token, 200);
     } catch (e) {
         res.status(500).json(errMsg500);
     }

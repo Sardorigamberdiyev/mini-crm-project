@@ -10,8 +10,8 @@ module.exports = (req, res, next) => {
     
     jwt.verify(access_token, config.get('accessJwtSecretKey'), (err, decoded) => {
         if (err) return res.status(403).json(errMsg403);
-
-        req.user = { userId: decoded.userId };
+        const { userId, role } = decoded;
+        req.user = { userId, role };
         res.cookie('logged_in', 'yes');
         next();
     })

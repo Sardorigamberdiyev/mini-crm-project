@@ -53,7 +53,7 @@ router.post('/login', loginValidator, async (req, res) => {
         const isPassMatch = await bcrypt.compare(password, user.password);
         if (!isPassMatch) return res.status(400).json(errMsgLogin400);
 
-        const payload = { userId: user._id.toString() };
+        const payload = { userId: user._id.toString(), role: user.role };
         const accessToken = jwt.sign(payload, config.get('accessJwtSecretKey'), { expiresIn: '30s' });
         const refreshToken = jwt.sign(payload, config.get('refreshJwtSecretKey'), { expiresIn: '60s' });
 

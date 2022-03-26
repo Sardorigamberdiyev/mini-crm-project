@@ -54,14 +54,14 @@ router.post('/login', loginValidator, async (req, res) => {
         if (!isPassMatch) return res.status(400).json(errMsgLogin400);
 
         const payload = { userId: user._id.toString(), role: user.role };
-        const accessToken = jwt.sign(payload, config.get('accessJwtSecretKey'), { expiresIn: '30s' });
-        const refreshToken = jwt.sign(payload, config.get('refreshJwtSecretKey'), { expiresIn: '60s' });
+        const accessToken = jwt.sign(payload, config.get('accessJwtSecretKey'), { expiresIn: '15m' });
+        const refreshToken = jwt.sign(payload, config.get('refreshJwtSecretKey'), { expiresIn: '1h' });
 
         const newRefreshToken = { userId: user._id, refreshToken };
         await (new Token(newRefreshToken)).save();
 
         const cookieAccessOption = { httpOnly: true };
-        const cookieRefreshOption = { httpOnly: true, maxAge: 1000 * 60 };
+        const cookieRefreshOption = { httpOnly: true, maxAge: 1000 * 60 * 60 };
         res.cookie('access_token', accessToken, cookieAccessOption);
         res.cookie('refresh_token', refreshToken, cookieRefreshOption);
         res.cookie('logged_in', 'yes');

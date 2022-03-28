@@ -3,8 +3,9 @@ import { Route } from 'react-router-dom';
 import { AppLayout } from './components/app';
 import { Login, Home } from './components/pages';
 
+
 const useRoutes = (isAuth, authRole) => {
-    console.log(isAuth);
+
     const authRoutes = (
         <>
         <Route path="/" element={<AppLayout />}>
@@ -16,7 +17,7 @@ const useRoutes = (isAuth, authRole) => {
 
     const unauthRoutes = (
         <>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="*" element={<h1>Not fount 404</h1>} />
         </>
     );

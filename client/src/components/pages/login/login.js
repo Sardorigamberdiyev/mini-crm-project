@@ -1,28 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import axios from 'axios';
+import axios from '../../../utils/axiosInterceptors';
 
 import { isCheckAuth } from '../../../actions';
 import './login.css';
 
 const Login = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
     const loginHandler = () => {
-        axios.post('/api/login', {login, password}, {
-            headers: {
-                'XSRF-TOKEN': Cookies.get('XSRF-TOKEN')
-            }
-        })
+        axios.post('/api/login', {login, password})
         .then((response) => {
             console.log(response);
             dispatch(isCheckAuth());
-            navigate('/');
         })
         .catch((err) => {
             console.log(err.response);

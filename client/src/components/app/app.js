@@ -5,6 +5,7 @@ import useRoutes from '../../routes';
 
 const App = ({ logged_in}) => {
     const routes = useRoutes(logged_in);
+
     return (
         <Routes>
             {routes}

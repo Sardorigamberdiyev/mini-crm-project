@@ -14,7 +14,7 @@ router.get('/refresh/access', async (req, res) => {
             if (err) return deleteTokenAndClearCookies(res, refresh_token, 401)
 
             const payload = { userId: decoded.userId };
-            const cookieAccessOption = { httpOnly: true, maxAge: 30 * 1000 };
+            const cookieAccessOption = { httpOnly: true };
             const newAccessToken = jwt.sign(payload, config.get('accessJwtSecretKey'), { expiresIn: '30s' });
             res.cookie('access_token', newAccessToken, cookieAccessOption);
             res.status(200).json(msg200);
@@ -22,6 +22,6 @@ router.get('/refresh/access', async (req, res) => {
     } catch (e) {
         res.status(500).json(errMsg500);
     }
-})
+});
 
 module.exports = router;

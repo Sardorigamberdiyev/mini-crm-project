@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
-
-import axios from 'axios';
+import axios from '../../../utils/axiosInterceptors';
 
 import { isCheckAuth } from '../../../actions';
 import './home.css';
@@ -11,7 +8,6 @@ import './home.css';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('/api/system')
@@ -24,12 +20,9 @@ const Home = () => {
     })
 
     const logoutHandler = () => {
-        axios.delete('/api/logout', {
-            headers: {'XSRF-TOKEN': Cookies.get('XSRF-TOKEN')}
-        })
+        axios.delete('/api/logout')
         .then((response) => {
             dispatch(isCheckAuth());
-            navigate('/login');
             console.log(response);
         })
         .catch((err) => {

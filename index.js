@@ -25,12 +25,8 @@ app.get('/api/system', isAuthMiddleware, (req, res, next) => {
 });
 
 if (isProduction) {
-    app.use(express.static(path.join(__dirname, 'client', 'build')));
+    app.use('/', express.static(path.join(__dirname, 'client', 'build')));
     app.use((req, res) => {
-        console.log('use *');
-        const { access_token, logged_in } = req.cookies;
-        const isViewAuthPages = access_token ? logged_in : 'no';
-        res.cookie('logged_in', isViewAuthPages);
         res.cookie('XSRF-TOKEN', req.csrfToken());
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });

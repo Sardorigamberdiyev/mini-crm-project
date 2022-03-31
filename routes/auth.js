@@ -13,7 +13,7 @@ const Token = require('../models/token');
 
 const router = Router();
 
-router.post('/register', registerValidator, async (req, res) => {
+router.post('/register', isAuthMiddleware, registerValidator, async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json(validatorJsonData(errors));

@@ -34,7 +34,7 @@ router.post('/register', isAuthMiddleware, registerValidator, async (req, res) =
 
         const user = new User(newUser);
         await user.save();
-        res.status(200).json('Пользователь успешно добавлено');
+        res.status(201).json('Пользователь успешно добавлено');
     } catch (e) {
         res.status(500).json(errMsg500);
     }

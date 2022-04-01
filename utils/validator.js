@@ -17,6 +17,11 @@ exports.registerValidator = [
     })
 ];
 
+exports.stateValidator = [
+    body('name', 'Поля наз. обязатаельное поле'),
+    body('currency', 'Поля волют обязательное')
+];
+
 exports.loginValidator = [
     body('login', 'Введите логин').isLength({ min: 1 }),
     body('password', 'Введите пароль').isLength({ min: 1 })

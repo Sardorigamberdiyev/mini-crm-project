@@ -14,6 +14,11 @@ const stateSchema = new Schema({
     cost: {
         type: Number,
         required: true
+    },
+    isDeleted: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

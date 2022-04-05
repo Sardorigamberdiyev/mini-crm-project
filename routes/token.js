@@ -15,7 +15,7 @@ router.get('/refresh/access', async (req, res) => {
 
             const payload = { userId: decoded.userId };
             const cookieAccessOption = { httpOnly: true };
-            const newAccessToken = jwt.sign(payload, config.get('accessJwtSecretKey'), { expiresIn: '30s' });
+            const newAccessToken = jwt.sign(payload, config.get('accessJwtSecretKey'), { expiresIn: '1h' });
             res.cookie('access_token', newAccessToken, cookieAccessOption);
             res.status(200).json(msg200);
         })

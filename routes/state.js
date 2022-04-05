@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         const { skip, limit } = req.query;
 
         const states = await State.find({isDeleted: false}).skip(skip || 0).limit(limit || 0);
-        const statesMaxQuantity = await State.countDocuments();
+        const statesMaxQuantity = await State.countDocuments({isDeleted: false});
 
         res.status(200).json({ states, statesMaxQuantity })
     } catch (e) {
@@ -55,10 +55,9 @@ router.put('/:stateId', stateValidator, async (req, res) => {
 router.post('/', stateValidator, async (req, res) => {
     try {
         const errors = validationResult(req);
-        if (!errors.array()) return res.status(400).json(validatorJsonData(errors));
+        if (!errors.isEmpty()) return res.status(400).json(validatorJsonData(errors));
 
-        const state = new State({...req.body});
-        await state.save();
+        await (new State({...req.body})).save();
 
         res.status(201).json(msg201);
     } catch (e) {

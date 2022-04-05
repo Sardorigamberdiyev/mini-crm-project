@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
     try {
         const { skip, limit } = req.query;
 
-        const carriages = await Carriage.find({ isDeleted: false }).skip(skip || 0).limit(limit || 0);
-        const carriagesMaxQuantity = await Carriage.countDocuments();
+        const carriages = await Carriage.find({isDeleted: false}).skip(skip || 0).limit(limit || 0);
+        const carriagesMaxQuantity = await Carriage.countDocuments({isDeleted: false});
 
         res.status(200).json({ carriages, carriagesMaxQuantity });
     } catch (e) {
@@ -55,8 +55,7 @@ router.post('/', carriageValidator, async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json(validatorJsonData(errors));
 
-        const carriage = new Carriage({...req.body});
-        await carriage.save();
+        await (new Carriage({...req.body})).save();
 
         res.status(201).json(msg201);
     } catch (e) {

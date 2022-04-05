@@ -10,8 +10,8 @@ const router = Router();
 router.get('/', async (req, res) => {
     try {
         const { skip, limit } = req.query;
-        const customers = await Customer.find({ isDeleted: false }).skip(skip || 0).limit(limit || 0);
-        const customersMaxQuantity = await Customer.countDocuments();
+        const customers = await Customer.find({isDeleted: false}).skip(skip || 0).limit(limit || 0);
+        const customersMaxQuantity = await Customer.countDocuments({isDeleted: false});
         res.status(200).json({ customers, customersMaxQuantity });
     } catch (e) {
         res.status(500).json(errMsg500);
@@ -32,7 +32,7 @@ router.put('/:customerId', customerValidator, async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json(validatorJsonData(errors));
-        
+
         const { customerId } = req.params;
         const { name, phone } = req.body;
 
@@ -52,8 +52,8 @@ router.post('/', customerValidator, async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json(validatorJsonData(errors));
 
-        const customer = new Customer({...req.body});
-        await customer.save();
+        await (new Customer({...req.body})).save();
+
         res.status(201).json(msg201);
     } catch (e) {
         res.status(500).json(errMsg500);

@@ -20,7 +20,7 @@ const Home = () => {
     })
 
     const logoutHandler = () => {
-        axios.delete('/api/logout')
+        axios.delete('/api/user/logout')
         .then((response) => {
             dispatch(isCheckAuth());
             console.log(response);

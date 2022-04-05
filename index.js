@@ -7,7 +7,11 @@ const csrf = require('csurf');
 
 const isAuthMiddleware = require('./middlewares/isAuth');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const tokenRoutes = require('./routes/token');
+const customerRoutes = require('./routes/customer');
+const carriageRoutes = require('./routes/carriage');
+const stateRoutes = require('./routes/state');
 
 const app = express();
 const PORT = config.get('port') || 5000;
@@ -17,12 +21,12 @@ app.use(express.json());
 app.use(cookieParser());
 if (isProduction) app.use(csrf({ cookie: true }));
 
-app.use('/api', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/token', tokenRoutes);
-
-app.get('/api/system', isAuthMiddleware, (req, res, next) => {
-    res.status(200).json(req.user)
-});
+app.use('/api/user', isAuthMiddleware, userRoutes);
+app.use('/api/customer', isAuthMiddleware, customerRoutes);
+app.use('/api/carriage', isAuthMiddleware, carriageRoutes);
+app.use('/api/state', isAuthMiddleware, stateRoutes);
 
 if (isProduction) {
     app.use('/', express.static(path.join(__dirname, 'client', 'build')));

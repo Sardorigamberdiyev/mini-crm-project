@@ -11,7 +11,8 @@ const customerSchema = new Schema({
     },
     isDeleted: {
         type: Boolean,
-        default: false
+        default: false,
+        sele: false
     }
 });
 

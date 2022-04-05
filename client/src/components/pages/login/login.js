@@ -11,7 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const loginHandler = () => {
-        axios.post('/api/login', {login, password})
+        axios.post('/api/user/login', {login, password})
         .then((response) => {
             console.log(response);
             dispatch(isCheckAuth());

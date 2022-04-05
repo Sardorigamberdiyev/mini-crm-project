@@ -10,16 +10,16 @@ exports.registerValidator = [
         if (password !== value) throw new Error('Пароли должны совпадать');
         return true;
     }),
-    body('role').custom((value) => {
-        const roles = ['user'];
-        if (!roles.includes(value)) throw new Error('Не коректный роль. (user)');
-        return true;
-    })
+    // body('role').custom((value) => {
+    //     const roles = ['user'];
+    //     if (!roles.includes(value)) throw new Error('Не коректный роль. (user)');
+    //     return true;
+    // })
 ];
 
 exports.stateValidator = [
-    body('name', 'Поля наз. обязатаельное поле'),
-    body('currency', 'Поля волют обязательное')
+    body('name', 'Поля наз. обязатаельное поле').isLength({ min: 1 }),
+    body('currency', 'Поля волют обязательное').isLength({ min: 1 })
 ];
 
 exports.loginValidator = [

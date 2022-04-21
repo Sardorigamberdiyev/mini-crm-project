@@ -11,7 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const loginHandler = () => {
-        axios.post('/api/user/login', {login, password})
+        axios.post('/api/auth/login', {login, password})
         .then((response) => {
             console.log(response);
             dispatch(isCheckAuth());
@@ -25,18 +25,18 @@ const Login = () => {
         <div className="login">
             <h1>Login</h1>
             <input 
-            type="text"
-            placeholder="login"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)} />
+                type="text"
+                placeholder="login"
+                value={login}
+                onChange={(e) => setLogin(e.target.value)} />
             <input 
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} />
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)} />
             <button 
-            type="button"
-            onClick={loginHandler}>Войти</button>
+                type="button"
+                onClick={loginHandler}>Войти</button>
         </div>
     )
 }

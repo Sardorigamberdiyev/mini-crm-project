@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+html, body{
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 86px;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+}
+.navbar .container{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar .container .logo{
+    background: #3A4A6B;
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.navbar .container .menu{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .container .menu li a{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    color: #3A4A6B;
+    margin: 0 1.5rem;
+    padding: 1rem 0.5rem;
+    text-decoration: none;
+}
+.navbar .container .menu li a:hover{
+    font-weight: 700;
+}
+
+.navbar .container .name{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #202020;
+    cursor: pointer;
+}
+.app-wrapper{
+    position: relative;
+    margin-top: 86px;
+    overflow: hidden;
+    height: calc(100vh - 86px);
+    background-image: url('./../../image/bg-image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(0.5);
+}
+.app-wrapper .outlet{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    overflow-y: scroll;
+}
+.app-wrapper .bg-dark{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(88, 88, 88, 0.24);
+    backdrop-filter: blur(8px)
+}

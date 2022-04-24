@@ -1,53 +1,21 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import axios from '../../../utils/axiosInterceptors';
-
-import { isCheckAuth } from '../../../actions';
+import React from 'react';
 import './home.css';
 
 
-const Home = () => {
-    const dispatch = useDispatch();
+const Home = (props) => {
 
-    useEffect(() => {
-        axios.get('/api/system')
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((err) => {
-                console.log(err.response);
-            })
-    })
+    const {onLogout, onRefreshToken} = props
 
-    const logoutHandler = () => {
-        axios.delete('/api/user/logout')
-        .then((response) => {
-            dispatch(isCheckAuth());
-            console.log(response);
-        })
-        .catch((err) => {
-            console.log(err.response);
-        })
-    }
-
-    const refreshTokenHandler = () => {
-        axios.get('/api/token/refresh/access')
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((err) => {
-                console.log(err.response);
-            })
-    }
+   
 
     return (
         <div className="home">
             <button 
             type="button"
-            onClick={refreshTokenHandler}>Рефрещить токен</button>
+            onClick={onRefreshToken}>Рефрещить токен</button>
             <button 
             type="button"
-            onClick={logoutHandler}>Выйти</button>
+            onClick={onLogout}>Выйти</button>
         </div>
     )
 }

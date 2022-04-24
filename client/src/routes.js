@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import { AppLayout } from './components/app';
-import { Login, Home } from './components/pages';
+import { Login, Home, Debts, Order } from './components/pages';
 
 
 const useRoutes = (isAuth, authRole) => {
@@ -10,7 +10,9 @@ const useRoutes = (isAuth, authRole) => {
         <>
         <Route path="/" element={<AppLayout />}>
             <Route index element={<Home />} />
-            <Route path="*" element={<h1>Not fount 404</h1>} />
+            <Route path='/debts' element={<Debts />} />
+            <Route path='/order' element={<Order/>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
         </>
     );
@@ -18,7 +20,7 @@ const useRoutes = (isAuth, authRole) => {
     const unauthRoutes = (
         <>
         <Route path="/" element={<Login />} />
-        <Route path="*" element={<h1>Not fount 404</h1>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
         </>
     );
 

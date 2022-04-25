@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import './app-layout.css';
 
 const AppLayout = () => {
@@ -26,7 +27,6 @@ const AppLayout = () => {
                 <div className='outlet'>
                     <Outlet />
                 </div>
-                <div className='bg-dark'/>
             </div>
         </div>
     )

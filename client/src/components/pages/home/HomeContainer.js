@@ -1,18 +1,19 @@
 import {Component} from 'react'
 import { isCheckAuth } from '../../../actions';
 import { connect } from 'react-redux'
+import { toast } from 'react-toastify';
 import axios from '../../../utils/axiosInterceptors';
 import Home from './home';
-import { Navigate } from 'react-router-dom';
 
 class HomeContainer extends Component {
-
-    handleLogout = () => {
+    
+    handleLogout = () => { 
         axios.delete('/api/user/logout')
         .then((response) => {
-            isCheckAuth();
-            <Navigate to='/' />
-            console.log(response);
+
+            this.props.isCheckAuth();
+            
+            toast.success(response.data)
         })
         .catch((err) => {
             console.log(err.response);
@@ -22,7 +23,7 @@ class HomeContainer extends Component {
     handleRefreshToken = () => {
         axios.get('/api/token/refresh/access')
             .then((response) => {
-                console.log(response);
+                toast.success(response.data)
             })
             .catch((err) => {
                 console.log(err.response);
@@ -31,7 +32,8 @@ class HomeContainer extends Component {
 
 
     render() { 
-        return ( <Home 
+        return ( 
+        <Home 
             onRefreshToken={this.handleRefreshToken}
             onLogout={this.handleLogout}
         /> );
@@ -47,7 +49,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        menuChecked: () => dispatch(isCheckAuth())
+        isCheckAuth: () => dispatch(isCheckAuth())
     }
 }
 

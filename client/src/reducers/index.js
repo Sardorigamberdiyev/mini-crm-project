@@ -11,6 +11,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loggedIn: action.payload
             }
+        case "ADMIN_MENU":
+            return {
+                ...state,
+                menuAdmin : action.payload
+            } 
+        case "MENU":
+            return {
+                ...state,
+                menu : action.payload
+            }
         default:
             return state
     }

@@ -26,7 +26,7 @@
 }
 .home .form-container{
     z-index: 2;
-    width: 808px;
+    width: 900px;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(40px);
@@ -65,10 +65,10 @@
 }
 
 .home form .form-main{
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .home form .form-main .form-group{
@@ -102,7 +102,7 @@
 }
 .home form .form-main .form-group .type{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -118,6 +118,9 @@
     background: #FAFAFA;
     border: 1px solid #EFEEF0;
 }
+.home form input::placeholder{
+    opacity: 0.5;
+}
 .home form .form-main .form-group .type .type-right{
     border-radius: 0 5px 5px 0;
     margin-right: 9px;
@@ -125,8 +128,8 @@
 .home form .form-main .form-group .type .type-left{
     border-radius: 5px 0 0 5px;
 }
-.home form .form-main .form-group .type .type-left:hover,
-.home form .form-main .form-group .type .type-right:hover{
+.home form .form-main .form-group .type .type-left.active,
+.home form .form-main .form-group .type .type-right.active{
     background-color: #3A4A6B;
     cursor: pointer;
     color: #fff;
@@ -157,14 +160,14 @@
 }
 .home form .form-calculator .calculator .transportation{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding: 0.5rem 1rem;
 }
 
 .home form .form-calculator .calculator .transportation  .country{
     padding: 12px 1.5rem;
-    background: #3A4A6B;
+    background: #EFEEF0;
     border: 1px solid #EFEEF0;
     box-sizing: border-box;
     border-radius: 6px;
@@ -173,8 +176,12 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: #636873;
     cursor: pointer;
+}
+.home form .form-calculator .calculator .transportation  .country.active{
+    background: #3A4A6B;
+    color: #fff
 }
 .home form .form-calculator .calculator .transportation input{
     padding: 12px;
@@ -266,6 +273,7 @@
 .home form .form-add .form-group:last-child input.sum{
     border-radius: 6px 0 0 6px;
 }
+
 .home form .form-add .form-group:last-child input.usb{
     border-radius: 0 6px 6px 0;
 }

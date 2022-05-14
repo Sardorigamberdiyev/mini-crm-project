@@ -1,0 +1,62 @@
+.assistant_input{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #636873;
+    padding: 1rem;
+    background: #FAFAFA;
+    border: 1px solid #EFEEF0;
+    border-radius: 6px;
+}
+.assistant_button{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFFFFF;
+    padding: 1rem 1.5rem;
+    background: #3A4A6B;
+    border: 1px solid #EFEEF0;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+.assistant_element{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAFAFA;
+    border: 1px solid #EFEEF0;
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    width: 100%;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+}
+
+.assistant_element p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: #636873;
+}
+
+.assistant_element .element_delte{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.assistant_element:hover .element_delte{
+    opacity: 1;
+}

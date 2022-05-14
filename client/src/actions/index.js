@@ -7,6 +7,21 @@ const isCheckAuth = () => {
     }
 }
 
+const ChangeAdminMenu = (payload) =>{
+    return {
+        type: "ADMIN_MENU",
+        payload
+    }
+}
+
+const ChangeMenu = (payload) =>{
+    return {
+        type: "MENU",
+        payload
+    }
+}
 export {
-    isCheckAuth
+    isCheckAuth,
+    ChangeMenu,
+    ChangeAdminMenu
 }

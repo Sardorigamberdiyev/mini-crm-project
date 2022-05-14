@@ -1,0 +1,162 @@
+.push{
+    position: relative;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - 86px - 4rem);
+    background-image: url('./../../../image/bg-image.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    padding: 2rem 0;
+}
+.push *{
+    transition: 0.2s;
+}
+.push .bg-dark{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(88, 88, 88, 0.24);
+    backdrop-filter: blur(8px)
+}
+.push .push-wrapper{
+    z-index: 2;
+    width: 987px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(40px);
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+.push .push-wrapper .push-menu{
+    background: #FFFFFF;
+    border-radius: 8px 0 0 8px;
+    min-width: 251px;
+    border-right: 2px solid #F7F7F9;
+    padding: 2rem 0;
+}
+.push .push-wrapper .push-menu h1{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #636873;
+    text-align: center;
+}
+.push .push-wrapper .push-menu ul{
+    margin-top: 40px;
+    list-style-type: none;
+}
+.push .push-wrapper .push-menu ul li a{
+    padding: 1rem 1.5rem;
+    display: block;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #3A4A6B;
+}
+
+.push .push-wrapper .push-menu ul li.active a{
+    background-color: #3A4A6B;
+    color: #FFFFFF;
+    opacity: 1;
+}
+.push .push-wrapper .push-menu ul li a:hover{
+    background-color: #3A4A6B;
+    color: #FFFFFF;
+    opacity: 0.9;
+}
+.push .push-wrapper .block{
+    width: 100%;
+    background-color: #fff;
+    border-radius: 0 8px 8px 0;
+    min-height: 600px;
+}
+
+.push .push-wrapper .block .wagon .wagon_push,
+.push .push-wrapper .block .operator .operator_push,
+.push .push-wrapper .block .payer .payer_push,
+.push .push-wrapper .block .state .state_push{
+    padding: 2rem; 
+    border-bottom:2px solid #F7F7F9;
+}
+.push .push-wrapper .block .wagon .wagon_push h1,
+.push .push-wrapper .block .operator .operator_push h1,
+.push .push-wrapper .block .payer .payer_push h1,
+.push .push-wrapper .block .state .state_push h1{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 40px;
+    text-transform: capitalize;
+    color: #3A4A6B;
+}
+.push .push-wrapper .block .wagon .wagon_push form{
+    padding: 2rem 0;
+    width: 254px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.push .push-wrapper .block .operator .operator_push form,
+.push .push-wrapper .block .payer .payer_push form,
+.push .push-wrapper .block .state .state_push form{
+    padding-top: 2rem;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.push .push-wrapper .block .state .state_push form{
+    padding-top: 2rem;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.push .push-wrapper .block .operator .operator_push form input,
+.push .push-wrapper .block .payer .payer_push form input,
+.push .push-wrapper .block .state .state_push form input{
+    margin-bottom: 1rem;
+}
+
+.push .push-wrapper .block .operator .operator_push form .button,
+.push .push-wrapper .block .payer .payer_push form .button,
+.push .push-wrapper .block .state .state_push form .button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.push .push-wrapper .block .wagon .wagon_push form button{
+    margin-top: 2rem;
+}
+.push .push-wrapper .block .wagon .wagon_all,
+.push .push-wrapper .block .operator .operator_all,
+.push .push-wrapper .block .payer .payer_all,
+.push .push-wrapper .block .state .state_all{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem 0 2rem 2rem;
+    flex-wrap: wrap;
+}
+.push .push-wrapper .block .wagon .wagon_all .assistant_element{
+    width: auto;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import 'antd/dist/antd.css';
 import './app-layout.css';
 
 const AppLayout = () => {

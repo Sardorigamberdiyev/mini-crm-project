@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { isCheckAuth } from '../../../actions';
 import { toast } from 'react-toastify';
-import axios from '../../../utils/axiosInterceptors';
+import axiosInter from '../../../utils/axiosInterceptors';
 import './login.css';
 
 const Login = () => {
@@ -11,13 +11,13 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const loginHandler = () => {
-        axios.post('/api/auth/login', {login, password})
+        axiosInter.post('/api/auth/login', {login, password})
         .then((response) => {
             toast.success(response.data)
             dispatch(isCheckAuth());
         })
         .catch((err) => {
-            console.log(err.response);
+            toast.error(err.response.data)
         })
     }
 

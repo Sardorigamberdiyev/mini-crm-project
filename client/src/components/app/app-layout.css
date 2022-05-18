@@ -80,7 +80,7 @@ body::-webkit-scrollbar-thumb {
     text-decoration: none;
 }
 .app-wrapper{
-    margin-top: 86px;
+    padding-top: 86px;
 }
 .app-wrapper .outlet{
     width: 100%;

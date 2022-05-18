@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: calc(100vh - 86px - 4rem);
+    min-height: calc(100vh - 86px);
     background-image: url('./../../../image/bg-image.png');
     background-size: cover;
     background-attachment: fixed;
@@ -12,7 +12,7 @@
     padding: 2rem 0;
 }
 .push *{
-    transition: 0.2s;
+    transition: 0.05s;
 }
 .push .bg-dark{
     position: absolute;
@@ -82,9 +82,11 @@
     width: 100%;
     background-color: #fff;
     border-radius: 0 8px 8px 0;
-    min-height: 600px;
+    min-height: 850px;
 }
-
+.push .push-wrapper .block .operator {
+    padding-bottom: 1rem;
+}
 .push .push-wrapper .block .wagon .wagon_push,
 .push .push-wrapper .block .operator .operator_push,
 .push .push-wrapper .block .payer .payer_push,
@@ -130,11 +132,6 @@
     justify-content: space-between;
     align-items: center;
 }
-.push .push-wrapper .block .operator .operator_push form input,
-.push .push-wrapper .block .payer .payer_push form input,
-.push .push-wrapper .block .state .state_push form input{
-    margin-bottom: 1rem;
-}
 
 .push .push-wrapper .block .operator .operator_push form .button,
 .push .push-wrapper .block .payer .payer_push form .button,
@@ -147,6 +144,18 @@
 .push .push-wrapper .block .wagon .wagon_push form button{
     margin-top: 2rem;
 }
+
+.push .push-wrapper .block .wagon .wagon-element,
+.push .push-wrapper .block .state .state-element{
+    min-height: 450px;
+}
+
+.push .push-wrapper .block .payer .payer-element{
+    min-height: 476px;
+}
+.push .push-wrapper .block .operator .operator-element{
+    min-height: 420px;
+}
 .push .push-wrapper .block .wagon .wagon_all,
 .push .push-wrapper .block .operator .operator_all,
 .push .push-wrapper .block .payer .payer_all,
@@ -154,9 +163,18 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 2rem 0 2rem 2rem;
+    padding: 2rem 0 0rem 2rem;
     flex-wrap: wrap;
 }
 .push .push-wrapper .block .wagon .wagon_all .assistant_element{
-    width: auto;
+    width: 20%;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.push .push-wrapper .block .state .state_all .assistant_element{
+    width: 45%;
+    box-sizing: border-box;
+    overflow: hidden;
 }

@@ -1,10 +1,10 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 import { ChangeMenu, isCheckAuth } from '../../../actions';
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
 import axios from '../../../utils/axiosInterceptors';
 import Home from './home';
-import currency from './../../utils/usbTosum'
+import currency from './../../../utils/usbTosum'
 
 class HomeContainer extends Component {
 

@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import React,{Component} from 'react'
 import Order from './Order'
 
 class OrderContainer extends Component {

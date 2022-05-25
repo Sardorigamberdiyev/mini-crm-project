@@ -1,0 +1,51 @@
+.ant-popover .ant-popover-arrow-content::before {
+  background: #f7f7f9;
+}
+.ant-popover .ant-popover-inner-content {
+  background: #f7f7f9;
+  box-shadow: 4px 4px 4px #e2e2e2;
+  border-radius: 1px;
+}
+.ant-popover .popover .state {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #3a4a6b;
+  margin-bottom: 4px;
+}
+.ant-popover .popover .state span {
+  color: #636873;
+  text-transform: uppercase;
+}
+.popoverInfo {
+  position: absolute;
+  top: -30px;
+  right: 35px;
+  padding: 0.5rem;
+  background: #f7f7f9;
+  box-shadow: 4px 4px 4px #e2e2e2;
+  border-radius: 4px;
+  z-index: 3;
+}
+.popoverInfo .info {
+  text-align: start;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  width: 110px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+.popoverInfo .info svg {
+  margin-right: 4px;
+}
+.popoverInfo .info:hover {
+  cursor: pointer;
+  color: #3a4a6b;
+}

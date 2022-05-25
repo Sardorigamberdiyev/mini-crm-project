@@ -1,0 +1,177 @@
+.order {
+  width: 100%;
+  background-image: url("./../../../image/bg-image.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: calc(100vh - 86px);
+}
+.order .statistic {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  padding: 2rem 0;
+}
+.order .statistic .container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order .statistic .container .box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 8px;
+  width: 253px;
+  height: 72px;
+  padding: 1rem;
+}
+.order .statistic .container .box p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  color: #3a4a6b;
+  margin: 0;
+  padding: 0;
+}
+.order .statistic .container .box p:last-child {
+  padding-left: 1rem;
+}
+
+.order .main {
+  width: 100%;
+  min-height: calc(100vh - 222px);
+  background-color: #fff;
+}
+
+.order .main .conatiner {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0.5rem 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.order .main .order-header .conatiner .search {
+  display: flex;
+  align-items: center;
+}
+.order .main .order-header .conatiner .search input {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #636873;
+  padding: 1rem;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  margin: 0 0.5rem;
+  margin-top: 8px;
+}
+.order .main .order-header .conatiner .search input[name="startDate"],
+.order .main .order-header .conatiner .search input[name="endDate"] {
+  width: 140px;
+}
+.order .main .order-header .conatiner .exel {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+}
+.order .main .table {
+  margin: 1rem 0;
+  width: 100vw;
+  border-collapse: collapse;
+  overflow-x: scroll;
+  user-select: none;
+}
+.order .main .table table,
+.order .main .table table tr,
+.order .main .table table tr td,
+.order .main .table table tr th {
+  border: 2px solid #f7f7f9;
+}
+.order .main .table table {
+  width: 100%;
+}
+
+.order .main .table table tr th {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #3a4a6b;
+  padding: 0.5rem;
+  width: 10px;
+}
+.order .main .table table tr td {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #636873;
+  padding: 0.5rem;
+}
+.order .main .table table tr td.states {
+  padding: 0;
+}
+.order .main .table table tr td.states button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  box-shadow: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #636873;
+  padding: 0.5rem;
+}
+
+.order .main .table table tr td.info {
+  padding: 0;
+  position: relative;
+}
+.order .main .table table tr td.info .text {
+  z-index: 1;
+  padding: 0.5rem;
+  padding-right: 30px;
+  margin: 0;
+  height: 100%;
+  width: 200px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+.order .main .table table tr td.info .text.active {
+  color: #fff;
+}
+.order .main .table table tr td.info .icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.order .main .table table tr td.info .nameInfo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

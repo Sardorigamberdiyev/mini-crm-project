@@ -1,309 +1,366 @@
-.home{
-    position: relative;
-     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: calc(100vh - 86px);
-    background-image: url('./../../../image/bg-image.png');
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    padding: 2rem 0;
+.home {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 86px);
+  background-image: url("./../../../image/bg-image.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  padding: 2rem 0;
 }
-.home *{
-    transition: 0.2s;
+.home * {
+  transition: 0.2s;
 }
-.home .bg-dark{
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(88, 88, 88, 0.24);
-    backdrop-filter: blur(8px)
+.home .bg-dark {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(88, 88, 88, 0.24);
+  backdrop-filter: blur(8px);
 }
-.home .form-container{
-    z-index: 2;
-    width: 900px;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(40px);
-    border-radius: 8px;
+.home .form-container {
+  z-index: 2;
+  width: 900px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(40px);
+  border-radius: 8px;
 }
-.home .form-container form{
-    background: #FFFFFF;
-    border-radius: 8px;
-    padding: 56px 24px;
+.home .form-container form {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 56px 24px;
 }
-.home form .form-header{
-    display: flex;
-    justify-content: center;
-    position: relative;
-    margin-bottom: 2rem;
+.home form .form-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 2rem;
 }
-.home form .form-header h1{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 40px;
-    color: #3A4A6B;
+.home form .form-header h1 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: #3a4a6b;
 }
-.home form .form-header button{
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateY(10%);
-    color: #636873;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.home form .form-main{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+.home form .form-header button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(10%);
+  color: #636873;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 30px;
+  cursor: pointer;
 }
 
-.home form .form-main .form-group{
-    width: 50%;
-    box-sizing: border-box;
-    padding: 1rem;
-}
-.home form .form-main .form-group label{
-    display: block;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #636873;
-    margin-bottom: 6px;
+.home form .form-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.home form .form-main .form-group input{
-    width: calc(100%  - 2rem);
-    background: #FAFAFA;
-    border: 1px solid #EFEEF0;
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #636873;
+.home form .form-main .form-group {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 1rem;
 }
-.home form .form-main .form-group .type{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+.home form .form-main .form-group label {
+  display: block;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  margin-bottom: 6px;
+}
+
+.home form .form-main .form-group input {
+  width: calc(100% - 2rem);
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+}
+
+.home form .form-main .form-group .select .css-1s2u09g-control,
+.home form .form-main .form-group .select .css-1pahdxg-control {
+  width: calc(100% - 2rem);
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  padding: 0.3rem 1rem;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  box-shadow: 0 0 1px #3a4a6b;
+  outline: 2px solid #000;
+}
+
+.home form .form-main .form-group .select .css-26l3qy-menu {
+  width: calc(100% - 2rem);
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+}
+.home form .form-main .form-group .type {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .home form .form-main .form-group .type .type-left,
-.home form .form-main .form-group .type .type-right{
-    padding: 12px 26px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #636873;
-    background: #FAFAFA;
-    border: 1px solid #EFEEF0;
+.home form .form-main .form-group .type .type-right {
+  padding: 12px 26px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  background: #fafafa;
+  border: 1px solid #efeef0;
 }
-.home form input::placeholder{
-    opacity: 0.5;
+.home form input::placeholder {
+  opacity: 0.5;
 }
-.home form .form-main .form-group .type .type-right{
-    border-radius: 0 5px 5px 0;
-    margin-right: 9px;
+.home form .form-main .form-group .type .type-right {
+  border-radius: 0 5px 5px 0;
+  margin-right: 9px;
 }
-.home form .form-main .form-group .type .type-left{
-    border-radius: 5px 0 0 5px;
+.home form .form-main .form-group .type .type-left {
+  border-radius: 5px 0 0 5px;
 }
 .home form .form-main .form-group .type .type-left.active,
-.home form .form-main .form-group .type .type-right.active{
-    background-color: #3A4A6B;
-    cursor: pointer;
-    color: #fff;
+.home form .form-main .form-group .type .type-right.active {
+  background-color: #3a4a6b;
+  cursor: pointer;
+  color: #fff;
 }
 
-.home form .form-main .form-group .type .select{
-    width: 100%
+.home form .form-main .form-group .type .select {
+  width: 100%;
 }
-.home form .form-main .form-group.pallitra{
-    display: flex;
+.home form .form-main .form-group.pallitra {
+  display: flex;
 }
-.home form .form-main .form-group.pallitra >div:first-child{
-    padding-right: 1rem;
-    flex: 6;
-}
-
-.home form .form-main .form-group.pallitra >div:last-child{
-    flex:4 ;
+.home form .form-main .form-group.pallitra > div:first-child {
+  padding-right: 1rem;
+  flex: 6;
 }
 
-.home form .form-calculator{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.home form .form-calculator .calculator{
-    flex: 6;
-}
-.home form .form-calculator .calculator .transportation{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0.5rem 1rem;
+.home form .form-main .form-group.pallitra > div:last-child {
+  flex: 4;
 }
 
-.home form .form-calculator .calculator .transportation  .country{
-    padding: 12px 1.5rem;
-    background: #EFEEF0;
-    border: 1px solid #EFEEF0;
-    box-sizing: border-box;
-    border-radius: 6px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #636873;
-    cursor: pointer;
+.home form .form-calculator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.home form .form-calculator .calculator .transportation  .country.active{
-    background: #3A4A6B;
-    color: #fff
+.home form .form-calculator .calculator {
+  flex: 6;
 }
-.home form .form-calculator .calculator .transportation input{
-    padding: 12px;
-    background: #FAFAFA;
-    border: 1px solid #EFEEF0;
-    box-sizing: border-box;
-    border-radius: 6px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #636873;
-}
-.home form .form-calculator .calculator .transportation input.money{
-    margin-left: 8px;
-    width: 110px;
-}
-.home form .form-calculator .calculator .transportation input.id{
-    width: 140px;
-    margin-left: 1.5rem;
+.home form .form-calculator .calculator .transportation {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5rem 1rem;
 }
 
-.home form .form-calculator .calculator .transportation input.count{
-    width: 60px;
-    margin-left: 8px;
-    padding: 12px 9px;
+.home form .form-calculator .calculator .transportation .country {
+  padding: 12px 1.5rem;
+  background: #efeef0;
+  border: 1px solid #efeef0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  text-transform: capitalize;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  cursor: pointer;
 }
-.home form .form-calculator .main{
-    flex: 3;
+.home form .form-calculator .calculator .transportation .country.active {
+  background: #3a4a6b;
+  color: #fff;
 }
-
-.home form .form-calculator .main p{
-    text-align: center;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 32px;
-    color: #636873;
-    margin: 16px 0px;
+.home form .form-calculator .calculator .transportation input {
+  padding: 12px;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
 }
-.home form .form-calculator .main h1{
-    text-align: center;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 40px;
-    color: #3A4A6B;
+.home form .form-calculator .calculator .transportation .money {
+  padding: 12px;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  margin-left: 8px;
+  width: 110px;
 }
-.home form .form-add{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
+.home form .form-add .form-group .pricePerTon {
+  padding: 12px;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  margin-left: 8px;
+  width: 200px;
 }
-.home form .form-add .form-group{
-    width: 100%;
-    padding: 0 0.5rem;
+.home form .form-calculator .calculator .transportation .money.notactive {
+  opacity: 0.5;
 }
-.home form .form-add .form-group label{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #636873;
-    display: block;
-    margin-bottom: 6px;
-}
-.home form .form-add .form-group input{
-    padding: 12px;
-    background: #FAFAFA;
-    border: 1px solid #EFEEF0;
-    box-sizing: border-box;
-    border-radius: 6px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    color: #636873;
-}
-.home form .form-add .form-group:last-child input{
-    width: 50%;
-    border-radius: 0;
-}
-.home form .form-add .form-group:last-child input.sum{
-    border-radius: 6px 0 0 6px;
-}
-
-.home form .form-add .form-group:last-child input.usb{
-    border-radius: 0 6px 6px 0;
-}
-.home form .form-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
+.home form .form-calculator .calculator .transportation input.id {
+  width: 150px;
+  margin-left: 1.5rem;
 }
 
-.home form .form-button button{
-    border-radius: 8px;
-    padding: 12px;
-    margin: 0.5rem;
-    border: none;
-    outline: none;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 32px;
-    width: 280px;
-    cursor: pointer;
+.home form .form-calculator .calculator .transportation input.count {
+  width: 100px;
+  margin-left: 8px;
+  padding: 12px 9px;
+}
+.home form .form-calculator .main {
+  flex: 3;
 }
 
-.home form .form-button button:first-child{
-    color: #636873;
-    background-color: #FAFAFA;
+.home form .form-calculator .main p {
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  color: #636873;
+  margin: 16px 0px;
 }
-.home form .form-button button:last-child{
-    color: #FFFFFF;
-    background-color: #3A4A6B;
+.home form .form-calculator .main h1 {
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  color: #3a4a6b;
+}
+.home form .form-add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.home form .form-add .form-group {
+  width: 100%;
+  padding: 0 0.5rem;
+}
+.home form .form-add .form-group label {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  display: block;
+  margin-bottom: 6px;
+}
+.home form .form-add .form-group input {
+  padding: 12px;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+}
+.home form .form-add .form-group:last-child input {
+  width: 50%;
+  border-radius: 0;
+}
+.home form .form-add .form-group:last-child input.sum {
+  border-radius: 6px 0 0 6px;
+}
+
+.home form .form-add .form-group:last-child input.usb {
+  border-radius: 0 6px 6px 0;
+}
+.home form .form-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.home form .form-button button {
+  border-radius: 8px;
+  padding: 12px;
+  margin: 0.5rem;
+  border: none;
+  outline: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  width: 280px;
+  cursor: pointer;
+}
+
+.home form .form-button button:first-child {
+  color: #636873;
+  background-color: #fafafa;
+}
+.home form .form-button button:last-child {
+  color: #ffffff;
+  background-color: #3a4a6b;
 }

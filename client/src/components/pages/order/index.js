@@ -1,3 +1,3 @@
-import Order from './OrderContainer'
+import Order from "./OrderContainer";
 
-export default Order
+export default Order;

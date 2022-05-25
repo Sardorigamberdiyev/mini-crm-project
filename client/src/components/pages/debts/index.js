@@ -1,3 +1,3 @@
-import Debts from './DebtsContainer'
+import Debts from "./DebtsContainer";
 
 export default Debts;

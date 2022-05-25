@@ -1,98 +1,97 @@
-.assistant_input{
-    width: 255px;
-    height: 90px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    
+.assistant_input {
+  width: 255px;
+  height: 90px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-.assistant_input input{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    text-transform: capitalize;
-    color: #636873;
-    padding: 1rem;
-    background: #FAFAFA;
-    border: 1px solid #EFEEF0;
-    border-radius: 6px;
-    margin: 0 !important;
+.assistant_input input {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: #636873;
+  padding: 1rem;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  margin: 0 !important;
 }
-.assistant_input p{
-    margin: 0;
-    padding: 0;
-    color: red;
-    padding-left: 1rem;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 16px;
-    text-transform: capitalize;
+.assistant_input p {
+  margin: 0;
+  padding: 0;
+  color: red;
+  padding-left: 1rem;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: capitalize;
 }
-.assistant_button{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: #FFFFFF;
-    padding: 1rem 1.5rem;
-    background: #3A4A6B;
-    border: 1px solid #EFEEF0;
-    border-radius: 6px;
-    outline: none;
-    cursor: pointer;
-    margin-top: 0.5rem !important;
+.assistant_button {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  background: #3a4a6b;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  margin-top: 0.5rem !important;
 }
-.assistant_element{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #FAFAFA;
-    border: 1px solid #EFEEF0;
-    border-radius: 6px;
-    padding: 1rem 1.5rem;
-    width: 100%;
-    margin-right: 2rem;
-    margin-bottom: 1rem;
-}
-
-.assistant_element p{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    text-transform: capitalize;
-    color: #636873;
-    margin: 0;
-    padding: 0;
+.assistant_element {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
 }
 
-.assistant_element .element_delte{
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    cursor: pointer;
-    opacity: 0;
+.assistant_element p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: #636873;
+  margin: 0;
+  padding: 0;
 }
 
-.assistant_element:hover .element_delte{
-    opacity: 1;
+.assistant_element .element_delte {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  cursor: pointer;
+  opacity: 0;
 }
-.assistant_spiner{
-    padding: 1rem 0 2rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.assistant_element:hover .element_delte {
+  opacity: 1;
 }
-.assistant_pagination{
-    display: flex;
-    justify-content: center;
-    align-items: center;    
+.assistant_spiner {
+  padding: 1rem 0 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.assistant_pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,3 +1,3 @@
-import Admin from './admin-container'
+import Admin from "./admin-container";
 
-export default Admin
+export default Admin;

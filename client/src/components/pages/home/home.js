@@ -10,8 +10,9 @@ const Home = props => {
     firm,
     date,
     wagons,
+    defaultTerritoryTransportation,
     territoryTransportation,
-    territorialTotalCost,
+    generalRate,
     additionalFee,
     pricePerTon,
     senderStation,
@@ -23,17 +24,18 @@ const Home = props => {
     sum,
     usb,
     options,
+    defaultCustomerId,
+    defaultCarriageId,
     states,
     onInputMoney,
     onSelectChange,
     handleState,
     onInputChange,
     onSubmit,
+    cargoType,
   } = props;
-
   const refDate = useMask({ mask: "__/__/____", replacement: { _: /\d/ } });
   const [farmBol, setFarm] = useState(true);
-  const [type, setType] = useState(true);
 
   const changeFarm = () => {
     if (farmBol) {
@@ -45,12 +47,10 @@ const Home = props => {
   };
 
   const handleCargoType = () => {
-    if (type) {
+    if (cargoType !== "спс") {
       handleState("cargoType", "спс");
-      setType(false);
     } else {
       handleState("cargoType", "мпс");
-      setType(true);
     }
   };
 
@@ -101,6 +101,7 @@ const Home = props => {
               <Select
                 name="customerId"
                 required
+                value={defaultCustomerId}
                 onChange={onSelectChange}
                 className="select"
                 options={options}
@@ -130,13 +131,15 @@ const Home = props => {
               <label>Тип груза</label>
               <div className="type">
                 <div
-                  className={`type-left ${type ? "active" : ""}`}
+                  className={`type-left ${cargoType !== "спс" ? "active" : ""}`}
                   onClick={handleCargoType}
                 >
                   мпс
                 </div>
                 <div
-                  className={`type-right ${type ? "" : "active"}`}
+                  className={`type-right ${
+                    cargoType !== "спс" ? "" : "active"
+                  }`}
                   onClick={handleCargoType}
                 >
                   спс
@@ -144,6 +147,7 @@ const Home = props => {
                 <Select
                   name="carriageId"
                   required
+                  value={defaultCarriageId}
                   className="select"
                   onChange={onSelectChange}
                   options={wagons}
@@ -176,9 +180,12 @@ const Home = props => {
             <div className="calculator">
               {states.map(item => (
                 <Transportation
+                  defaultTerritoryTransportation={
+                    defaultTerritoryTransportation
+                  }
                   key={item._id}
                   items={item}
-                  totalCost={territorialTotalCost}
+                  totalCost={generalRate}
                   handleState={handleState}
                   territories={territoryTransportation}
                 />
@@ -186,7 +193,7 @@ const Home = props => {
             </div>
             <div className="main">
               <p>Общий стоимость</p>
-              <h1>{territorialTotalCost} USD</h1>
+              <h1>{generalRate} USD</h1>
             </div>
           </div>
           <div className="form-add">

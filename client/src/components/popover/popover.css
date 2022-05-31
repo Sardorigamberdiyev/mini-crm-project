@@ -14,6 +14,7 @@
   line-height: 24px;
   color: #3a4a6b;
   margin-bottom: 4px;
+  cursor: pointer;
 }
 .ant-popover .popover .state span {
   color: #636873;
@@ -27,7 +28,14 @@
   background: #f7f7f9;
   box-shadow: 4px 4px 4px #e2e2e2;
   border-radius: 4px;
-  z-index: 3;
+  z-index: 9998;
+}
+
+.order .main .table table tr:last-child .popoverInfo {
+  position: absolute;
+  top: auto;
+  right: 35px;
+  bottom: 0;
 }
 .popoverInfo .info {
   text-align: start;

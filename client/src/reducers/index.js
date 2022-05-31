@@ -21,6 +21,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         menu: action.payload,
       };
+
     default:
       return state;
   }

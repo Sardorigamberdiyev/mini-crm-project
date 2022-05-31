@@ -1,0 +1,161 @@
+.overhead {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 86px);
+  background-image: url("./../../../image/bg-image.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  padding: 2rem 0;
+}
+.overhead * {
+  transition: 0.2s !important;
+}
+.overhead .bg-dark {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(88, 88, 88, 0.24);
+  backdrop-filter: blur(8px);
+}
+.overhead-container {
+  z-index: 2;
+  width: 1640px;
+  min-height: 50vh;
+  padding: 0 4rem;
+  background-color: #fff;
+  backdrop-filter: blur(40px);
+  border-radius: 8px;
+  display: flex;
+  align-items: stretch;
+}
+
+.overhead-main {
+  width: 100%;
+  border: 2px solid #f7f7f9;
+  position: relative;
+}
+.overhead-main h1 {
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  color: #3a4a6b;
+  padding: 2rem 0;
+  margin: 0;
+}
+.overhead-main .count_number {
+  position: absolute;
+  top: 128px;
+  left: -36px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  color: #3a4a6b;
+}
+.overhead-main .ant-tabs .ant-tabs-nav-wrap {
+  padding-top: 8px;
+  border-top: 2px solid #f7f7f9;
+}
+.overhead-main .ant-tabs .ant-tabs-tab {
+  padding: 8px 24px;
+}
+.overhead-main .ant-tabs .ant-tabs-tab div {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #636873;
+}
+.overhead-main .ant-tabs .ant-tabs-tab.ant-tabs-tab-active div {
+  text-align: center;
+  color: #3a4a6b;
+}
+.overhead-main .ant-tabs .ant-tabs-ink-bar {
+  background-color: #3a4a6b;
+}
+.overhead-main .ant-tabs .ant-tabs-content {
+  padding: 8px;
+}
+.overhead-main form .form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.overhead-main form .form-group .item-number {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  color: #3a4a6b;
+}
+.overhead-main form .form-group .input-content {
+  padding: 16px;
+  width: 100%;
+}
+.overhead-main form .form-group .input-content label {
+  display: block;
+  padding-bottom: 6px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+}
+.overhead-main form .form-group .input-content input {
+  width: 100%;
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  padding: 12px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+}
+.overhead-main form .form-group .input-content input.input-one {
+  width: 30%;
+  border-radius: 6px 0 0 6px;
+}
+
+.overhead-main form .form-group .input-content input.input-two {
+  width: 70%;
+  border-radius: 0 6px 6px 0;
+}
+.overhead form .button {
+  padding: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.overhead form .button button {
+  width: 354px;
+}
+.overhead-right {
+  width: 400px;
+  padding: 32px 0 0 24px;
+}

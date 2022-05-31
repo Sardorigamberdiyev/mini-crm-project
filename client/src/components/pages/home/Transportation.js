@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 export default function Transportation(props) {
-  const { items, territories, totalCost, handleState } = props;
+  const {
+    items,
+    territories,
+    totalCost,
+    handleState,
+    defaultTerritoryTransportation,
+  } = props;
 
   const [code, setCode] = useState(true);
   const [firstCode, setFirstCode] = useState("");
@@ -17,6 +23,7 @@ export default function Transportation(props) {
         ...data,
         {
           stateId: items._id,
+          stateCost: items.cost,
           firstCode: value,
           lastCode,
         },
@@ -27,16 +34,16 @@ export default function Transportation(props) {
         ...data,
         {
           stateId: items._id,
+          stateCost: items.cost,
           firstCode,
           lastCode: value,
         },
       ]);
     }
   };
-
-  useEffect(() => {
+  const handleCode = () => {
     let cost = 0;
-    if (code) {
+    if (!code) {
       let data = territories.filter(item => item.stateId !== items._id);
       handleState("territoryTransportation", data);
       setFirstCode("");
@@ -52,20 +59,31 @@ export default function Transportation(props) {
           stateId: items._id,
           firstCode: 0,
           lastCode: 0,
+          stateCost: 0,
         },
       ]);
-
       cost = totalCost + items.cost;
     }
     cost = Math.round(cost * 10000) / 10000;
-    handleState("territorialTotalCost", cost);
-  }, [code]);
+    handleState("generalRate", cost);
+    setCode(!code);
+  };
+
+  useEffect(() => {
+    const defaultItem = defaultTerritoryTransportation.filter(
+      item => item.stateId._id === items._id,
+    )[0];
+    const defaultCode = typeof defaultItem !== "object";
+    const defaultFirstCode = defaultCode ? "" : defaultItem.firstCode;
+    const defaultLastCode = defaultCode ? "" : defaultItem.lastCode;
+
+    setCode(defaultCode);
+    setFirstCode(defaultFirstCode);
+    setLastCode(defaultLastCode);
+  }, [defaultTerritoryTransportation]);
   return (
     <div className="transportation">
-      <div
-        className={`country ${code ? "" : "active"}`}
-        onClick={() => setCode(!code)}
-      >
+      <div className={`country ${code ? "" : "active"}`} onClick={handleCode}>
         {items.name}
       </div>
       <div className={`money ${code ? "notactive" : ""}`}>{items.cost} USD</div>

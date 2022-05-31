@@ -1,27 +1,36 @@
 import React, { useState } from "react";
-import InfoModal from "../modal/InfoModal";
+import { useNavigate } from "react-router-dom";
+import { BsArrowRepeat, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
 import WagonModal from "../modal/WagonModal";
 import DeleteModal from "./../modal/DeleteModal";
-import { BsArrowRepeat, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
 import "./popover.css";
 
-const PopoverInfo = ({ id, text, wagon }) => {
-  const [modalInfo, setModalInfo] = useState(false);
+const PopoverInfo = ({ id, wagon, getOrders }) => {
   const [modalWagon, setModalWagon] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+  const navigate = useNavigate();
+  const editPage = () => {
+    navigate(`/${id}`);
+  };
 
   return (
     <div className="popoverInfo">
-      {modalInfo ? (
-        <InfoModal id={id} text={text} setModalInfo={setModalInfo} />
-      ) : null}
       {modalWagon ? (
-        <WagonModal id={id} wagon={wagon} setModalWagon={setModalWagon} />
+        <WagonModal
+          id={id}
+          wagon={wagon}
+          setModalWagon={setModalWagon}
+          getOrders={getOrders}
+        />
       ) : null}
       {modalDelete ? (
-        <DeleteModal id={id} setModalDelete={setModalDelete} />
+        <DeleteModal
+          id={id}
+          setModalDelete={setModalDelete}
+          getOrders={getOrders}
+        />
       ) : null}
-      <div className="info" onClick={() => setModalInfo(true)}>
+      <div className="info" onClick={editPage}>
         <BsFillPencilFill /> Изменить
       </div>
       <div className="info" onClick={() => setModalWagon(true)}>

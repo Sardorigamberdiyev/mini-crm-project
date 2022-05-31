@@ -12,7 +12,7 @@
   padding: 2rem 0;
 }
 .home * {
-  transition: 0.2s;
+  transition: 0.02s;
 }
 .home .bg-dark {
   position: absolute;

@@ -7,7 +7,6 @@ import "./app-layout.css";
 
 const AppLayout = () => {
   const menu = useSelector(state => state.menu);
-
   return (
     <div className="app-layout">
       <div className="navbar">

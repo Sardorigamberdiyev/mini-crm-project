@@ -152,7 +152,6 @@ class Container extends PureComponent {
           capacity,
           generalRate,
           territoryTransportation,
-          defaultTerritoryTransportation: territoryTransportation,
           additionalFee,
           pricePerTon,
           sum,
@@ -195,7 +194,6 @@ class Container extends PureComponent {
   getStates = async () => {
     await axiosInter.get("/api/state").then(res => {
       const { states } = res.data;
-
       if (this.ref) this.setState({ states });
     });
   };
@@ -299,6 +297,7 @@ class Container extends PureComponent {
     const id = ipArr[ipArr.length - 1];
     const IpURL = id ? "/api/order/" + id : "/api/order";
     const rest = id ? "put" : "post";
+
     axiosInter[rest](IpURL, data)
       .then(res => {
         toast.success(res.data);

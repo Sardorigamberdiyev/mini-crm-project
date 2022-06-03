@@ -78,6 +78,7 @@
   font-size: 16px;
   line-height: 24px;
   text-align: center;
+  text-transform: uppercase;
   color: #636873;
 }
 .overhead-main .ant-tabs .ant-tabs-tab.ant-tabs-tab-active div {
@@ -156,6 +157,24 @@
   width: 354px;
 }
 .overhead-right {
-  width: 400px;
-  padding: 32px 0 0 24px;
+  width: 440px;
+  padding: 32px 24px;
+  border-right: 2px solid #f7f7f9;
+}
+
+.overhead-right h4 {
+  text-transform: initial;
+}
+.overhead-right p,
+.overhead-right h4 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 32px;
+  color: #636873;
+}
+.overhead-right p span,
+.overhead-right h4 {
+  color: #3a4a6b;
 }

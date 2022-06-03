@@ -10,7 +10,6 @@ const Home = props => {
     firm,
     date,
     wagons,
-    defaultTerritoryTransportation,
     territoryTransportation,
     generalRate,
     additionalFee,
@@ -180,9 +179,6 @@ const Home = props => {
             <div className="calculator">
               {states.map(item => (
                 <Transportation
-                  defaultTerritoryTransportation={
-                    defaultTerritoryTransportation
-                  }
                   key={item._id}
                   items={item}
                   totalCost={generalRate}

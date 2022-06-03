@@ -12,10 +12,10 @@ axios.interceptors.response.use(
       window.location.reload();
       return Promise.reject(error);
     }
-    if (responseStatus === 404) {
-      window.location.href = "/order";
-      return Promise.reject(error);
-    }
+    // if (responseStatus === 404) {
+    //   window.location.href = "/order";
+    //   return Promise.reject(error);
+    // }
     try {
       if (responseStatus === 403 && !originalConfig._retry) {
         originalConfig._retry = true;

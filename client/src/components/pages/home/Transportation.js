@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function Transportation(props) {
-  const {
-    items,
-    territories,
-    totalCost,
-    handleState,
-    defaultTerritoryTransportation,
-  } = props;
+  const { items, territories, totalCost, handleState } = props;
 
   const [code, setCode] = useState(true);
   const [firstCode, setFirstCode] = useState("");
@@ -15,14 +9,14 @@ export default function Transportation(props) {
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    let data = territories.filter(item => item.stateId !== items._id);
+    let data = territories.filter(item => item.stateId._id !== items._id);
 
     if (name === "firstCode") {
       setFirstCode(value);
       handleState("territoryTransportation", [
         ...data,
         {
-          stateId: items._id,
+          stateId: items,
           stateCost: items.cost,
           firstCode: value,
           lastCode,
@@ -33,7 +27,7 @@ export default function Transportation(props) {
       handleState("territoryTransportation", [
         ...data,
         {
-          stateId: items._id,
+          stateId: items,
           stateCost: items.cost,
           firstCode,
           lastCode: value,
@@ -44,7 +38,7 @@ export default function Transportation(props) {
   const handleCode = () => {
     let cost = 0;
     if (!code) {
-      let data = territories.filter(item => item.stateId !== items._id);
+      let data = territories.filter(item => item.stateId._id !== items._id);
       handleState("territoryTransportation", data);
       setFirstCode("");
       setLastCode("");
@@ -56,7 +50,7 @@ export default function Transportation(props) {
       handleState("territoryTransportation", [
         ...territories,
         {
-          stateId: items._id,
+          stateId: items,
           firstCode: 0,
           lastCode: 0,
           stateCost: 0,
@@ -70,7 +64,7 @@ export default function Transportation(props) {
   };
 
   useEffect(() => {
-    const defaultItem = defaultTerritoryTransportation.filter(
+    const defaultItem = territories.filter(
       item => item.stateId._id === items._id,
     )[0];
     const defaultCode = typeof defaultItem !== "object";
@@ -80,7 +74,7 @@ export default function Transportation(props) {
     setCode(defaultCode);
     setFirstCode(defaultFirstCode);
     setLastCode(defaultLastCode);
-  }, [defaultTerritoryTransportation]);
+  }, []);
   return (
     <div className="transportation">
       <div className={`country ${code ? "" : "active"}`} onClick={handleCode}>

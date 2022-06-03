@@ -1,7 +1,10 @@
 exports.errMsg401 = 'Нет авторизации';
 exports.errMsg403 = 'Нет доступа';
+exports.errMsg404 = 'Нет данный по запросу';
 exports.errMsg500 = 'Что то пошло не так попробуйте заного';
 exports.errMsgLogin400 = 'Введите коректный логин или пароль!';
+exports.errMsgCarriageReturn400 = 'Кол-во вагонов должен быть больше возрата вагона!';
+exports.errMsgCarriageCount400 = 'Кол-во вагонов не должен быть меньше кол-во возврата вагона!';
 exports.msgLogin200 = 'Вы успешно вошли в систему';
 exports.msgLogout200 = 'Вы успешно вышли из системы';
 exports.msg201 = 'Успешно добавлено';

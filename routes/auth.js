@@ -12,6 +12,38 @@ const Token = require('../models/token');
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/auth/login:
+ *  post:
+ *   summary: Войти в систему
+ *   tags: [Auth]
+ *   requestBody:
+ *      required: true
+ *      content:
+ *          application/json:
+ *              schema:
+ *                  properties:
+ *                    login:
+ *                        type: string
+ *                        description: Логин пользователя
+ *                    password:
+ *                        type: string
+ *                        description: Пароль пользователя
+ *                  required:
+ *                        - login
+ *                        - password
+ *                  example:
+ *                        login: sardor123
+ *                        password: s1234567
+ *   responses:
+ *      200:
+ *       description: Успешно вошли в систему
+ *      400:
+ *       description: Плохой запрос от клиента
+ *      500:
+ *       description: Что-то пошло не так
+ */
 router.post('/login', loginValidator, async (req, res) => {
     try {
         const errors = validationResult(req);
@@ -33,7 +65,7 @@ router.post('/login', loginValidator, async (req, res) => {
         await (new Token(newRefreshToken)).save();
 
         const cookieAccessOption = {httpOnly: true};
-        const cookieRefreshOption = {httpOnly: true, maxAge: 1000 * 60 * 60};
+        const cookieRefreshOption = {httpOnly: true, maxAge: 1000 * 60 * 60 * 72};
         res.cookie('access_token', accessToken, cookieAccessOption);
         res.cookie('refresh_token', refreshToken, cookieRefreshOption);
         res.cookie('logged_in', 'yes');

@@ -15,6 +15,11 @@ const stateSchema = new Schema({
         type: Number,
         required: true
     },
+    // carriageId: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Carriage',
+    //     required: true
+    // },
     isDeleted: {
         type: Boolean,
         required: true,

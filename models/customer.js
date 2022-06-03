@@ -12,7 +12,7 @@ const customerSchema = new Schema({
     isDeleted: {
         type: Boolean,
         default: false,
-        sele: false
+        select: false
     }
 });
 

@@ -5,9 +5,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import axiosInter from "./../../utils/axiosInterceptors";
 import "./modal.css";
 
-export default function WagonModal({ id, wagon, setModalWagon }) {
+export default function WagonModal({ id, wagon, setModalWagon, getOrders }) {
   const [wagonValue, setWagonValue] = useState(wagon);
-  const [carriageReturn, setCarriageReturn] = useState();
+  const [carriageReturn, setCarriageReturn] = useState("");
 
   const onChange = e => {
     const item = wagon - e.target.value;
@@ -22,6 +22,7 @@ export default function WagonModal({ id, wagon, setModalWagon }) {
     axiosInter.put("/api/order/wagon/return/" + id, data).then(res => {
       toast.success(res.data);
       setModalWagon(false);
+      getOrders();
     });
   };
   return (

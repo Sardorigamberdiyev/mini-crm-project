@@ -3,14 +3,17 @@ import { useDispatch } from "react-redux";
 import { isCheckAuth } from "../../../actions";
 import { toast } from "react-toastify";
 import axiosInter from "../../../utils/axiosInterceptors";
+import { Input, Button } from "./../../assistant";
 import "./login.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [check, setCheck] = useState(false);
 
-  const loginHandler = () => {
+  const loginHandler = e => {
+    e.preventDefault();
     axiosInter
       .post("/api/auth/login", { login, password })
       .then(response => {
@@ -24,22 +27,33 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="login"
-        value={login}
-        onChange={e => setLogin(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-      <button type="button" onClick={loginHandler}>
-        Войти
-      </button>
+      <form className="block" onSubmit={loginHandler}>
+        <h1>Login</h1>
+        <Input
+          type="text"
+          placeholder="login"
+          required
+          value={login}
+          onChange={e => setLogin(e.target.value)}
+        />
+        <Input
+          type={check ? "text" : "password"}
+          placeholder="password"
+          value={password}
+          required
+          onChange={e => setPassword(e.target.value)}
+        />
+        <input
+          id="password-check"
+          type="checkbox"
+          onChange={() => setCheck(!check)}
+          value={check}
+        />
+        <label htmlFor="password-check">Password</label>
+        <div className="login-button">
+          <Button type="submit">Войти</Button>
+        </div>
+      </form>
     </div>
   );
 };

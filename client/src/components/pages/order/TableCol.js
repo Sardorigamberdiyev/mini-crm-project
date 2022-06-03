@@ -4,16 +4,21 @@ import textLength from "../../../utils/textLength";
 import { Button, Popover } from "antd";
 import { popover, PopoverInfo } from "../../popover";
 import { AiOutlineMore, AiOutlineClose } from "react-icons/ai";
+import DoingModal from "../../modal/DoingModal";
+import InfoModal from "../../modal/InfoModal";
 
 export default function TableCol(props) {
-  const { item } = props;
+  const { item, getOrders } = props;
   const [infoPopover, setInfoPopover] = useState(false);
+  const [doingModal, setModalDoing] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
+
   return (
     <tr>
       <td>{getDate(item.date)}</td>
       <td className="states">
         <Popover
-          content={popover(item.territoryTransportation)}
+          content={popover(item.territoryTransportation, item._id)}
           placement="bottom"
         >
           <Button>
@@ -33,14 +38,27 @@ export default function TableCol(props) {
       <td>{item.carriageReturn}</td>
       <td>{item.carriageRemainder}</td>
       <td>{item.capacity}</td>
-      <td>{item.territorialTotalCost}</td>
-      <td>{item.pricePerTon}</td>
+      <td>{item.generalRate}</td>
+      <td>{item.additionalFee}</td>
       <td>{item.pricePerTon}</td>
       <td>
         {item.tlg.uzsPrice} {item.tlg.usdPrice}USD
       </td>
-      <td>{item.actualTotalPrice}</td>
-      <td>{item.doing.cost}</td>
+      <td>{item.totalPrice}</td>
+      <td className="doing">
+        <div className="block" onClick={() => setModalDoing(true)}>
+          .
+        </div>
+        {item.doing.cost}
+        {doingModal ? (
+          <DoingModal
+            id={item._id}
+            getOrders={getOrders}
+            setModalDoing={setModalDoing}
+            firm={item.customerId.name}
+          />
+        ) : null}
+      </td>
       <td>{item.debt}</td>
       <td
         className="info"
@@ -49,6 +67,7 @@ export default function TableCol(props) {
         }}
       >
         <div
+          onClick={() => setInfoModal(true)}
           className={`text ${
             item.additionalInfo.infoColor !== "transparent" ? "active" : ""
           }`}
@@ -65,8 +84,16 @@ export default function TableCol(props) {
           {infoPopover ? (
             <PopoverInfo
               id={item._id}
-              text={item.additionalInfo.infoText}
               wagon={item.carriageRemainder}
+              getOrders={getOrders}
+            />
+          ) : null}
+          {infoModal ? (
+            <InfoModal
+              id={item._id}
+              text={item.additionalInfo.infoText}
+              setModalInfo={setInfoModal}
+              getOrders={getOrders}
             />
           ) : null}
         </div>

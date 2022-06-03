@@ -5,10 +5,12 @@ import { AiOutlineClose } from "react-icons/ai";
 import axiosInter from "./../../utils/axiosInterceptors";
 import "./modal.css";
 
-export default function WagonModal({ id, setModalDelete }) {
+export default function WagonModal({ id, setModalDelete, getOrders }) {
   const deleteCol = () => {
     axiosInter.delete("/api/order/" + id).then(res => {
       toast.success(res.data);
+      setModalDelete(false);
+      getOrders();
     });
   };
   return (
@@ -17,16 +19,16 @@ export default function WagonModal({ id, setModalDelete }) {
         <div className="exet" onClick={() => setModalDelete(false)}>
           <AiOutlineClose />
         </div>
-        <h1>Возврать вагон</h1>
+        <h1>Ты хочешь умереть?</h1>
         <div className="group">
           <div>
             <Button type="button" onClick={() => setModalDelete(false)}>
-              No
+              Нет
             </Button>
           </div>
           <div>
             <Button type="button" onClick={deleteCol}>
-              Ok
+              Да
             </Button>
           </div>
         </div>

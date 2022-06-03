@@ -1,37 +1,58 @@
-import React, { Component } from "react";
-import { ChangeMenu, isCheckAuth } from "../../../actions";
-import { connect } from "react-redux";
+import React, { PureComponent } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChangeMenu } from "../../../actions";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axiosInter from "../../../utils/axiosInterceptors";
 import Home from "./home";
 import currency from "./../../../utils/usbTosum";
 
-class HomeContainer extends Component {
-  state = {
-    options: [],
-    states: [],
-    wagons: [],
-    firm: "firm-1",
-    date: "",
-    senderStation: "",
-    arrivalStation: "",
-    customerId: "",
-    sender: "",
-    recipient: "",
-    cargoType: "мпс",
-    carriageId: "",
-    carriageCount: "",
-    capacity: "",
-    territoryTransportation: [],
-    territorialTotalCost: 0,
-    additionalFee: "",
-    pricePerTon: 0,
-    sum: "",
-    usb: "",
-  };
+export default function HomeContainer() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  return <Container dispatch={dispatch} navigate={navigate} />;
+}
 
+class Container extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: [],
+      states: [],
+      wagons: [],
+      firm: "firm-1",
+      date: "",
+      senderStation: "",
+      arrivalStation: "",
+      customerId: "",
+      defaultCustomerId: "",
+      sender: "",
+      recipient: "",
+      cargoType: "мпс",
+      carriageId: "",
+      defaultCarriageId: "",
+      carriageCount: "",
+      capacity: "",
+      territoryTransportation: [],
+      defaultTerritoryTransportation: [],
+      generalRate: 0,
+      additionalFee: "",
+      pricePerTon: 0,
+      sum: "",
+      usb: "",
+    };
+    this.ref = React.createRef();
+    this.ref = true;
+  }
   componentDidMount() {
-    this.props.Changemenu("home");
+    const { dispatch } = this.props;
+
+    dispatch(ChangeMenu("home"));
+    const data = window.location.pathname.split("/");
+    const id = data[data.length - 1];
+    if (id) {
+      this.getOrder(id);
+    }
     this.getPayers();
     this.getStates();
     this.getWagons();
@@ -41,79 +62,139 @@ class HomeContainer extends Component {
       capacity: a,
       carriageCount: b,
       additionalFee: c,
-      territorialTotalCost: d,
+      generalRate: d,
     } = prevState;
-    const {
-      capacity,
-      carriageCount,
-      additionalFee,
-      territorialTotalCost,
-    } = this.state;
+    const { capacity, carriageCount, additionalFee, generalRate } = this.state;
     if (
       capacity &&
       carriageCount &&
       additionalFee &&
-      territorialTotalCost &&
+      generalRate &&
       (capacity !== a ||
         carriageCount !== b ||
         additionalFee !== c ||
-        territorialTotalCost !== d)
+        generalRate !== d)
     ) {
       let pricePerTon = additionalFee / (capacity / carriageCount);
-      pricePerTon =
-        Math.round((pricePerTon + territorialTotalCost) * 1000) / 1000;
-      console.log(pricePerTon);
+      pricePerTon = Math.round((pricePerTon + generalRate) * 1000) / 1000;
       this.setState({ pricePerTon });
     }
     if (
-      (!capacity ||
-        !carriageCount ||
-        !additionalFee ||
-        !territorialTotalCost) &&
+      (!capacity || !carriageCount || !additionalFee || !generalRate) &&
       (capacity !== a ||
         carriageCount !== b ||
         additionalFee !== c ||
-        territorialTotalCost !== d)
+        generalRate !== d)
     ) {
       this.setState({
         pricePerTon: 0,
       });
     }
   }
+  componentWillUnmount() {
+    this.ref = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
+  getOrder = async id => {
+    await axiosInter.get("/api/order/" + id).then(res => {
+      const {
+        firm,
+        dateIssue,
+        senderStation,
+        arrivalStation,
+        sender,
+        customerId,
+        recipient,
+        cargoType,
+        carriageCount,
+        carriageReturn,
+        carriageRemainder,
+        capacity,
+        generalRate,
+        territoryTransportation,
+        additionalFee,
+        pricePerTon,
+        carriageId,
+        tlg: { uzsPrice: sum, usdPrice: usd },
+      } = res.data;
+      const defaultCustomerId = {
+        label: customerId.name,
+        value: customerId._id,
+      };
+      const defaultCarriageId = {
+        label: carriageId.typeCarriage,
+        value: carriageId._id,
+      };
+      const date = new Date(dateIssue),
+        day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate(),
+        month = date.getMonth() > 9 ? date.getMonth() : "0" + date.getMonth(),
+        year = date.getFullYear();
+      const datafull = day + "/" + (month + 1) + "/" + year;
+
+      if (this.ref)
+        this.setState({
+          defaultCustomerId,
+          defaultCarriageId,
+          firm,
+          customerId: customerId._id,
+          carriageId: carriageId._id,
+          date: datafull,
+          senderStation,
+          arrivalStation,
+          sender,
+          recipient,
+          cargoType,
+          carriageCount,
+          carriageReturn,
+          carriageRemainder,
+          capacity,
+          generalRate,
+          territoryTransportation,
+          additionalFee,
+          pricePerTon,
+          sum,
+          usd,
+        });
+    });
+  };
   getPayers = async () => {
     await axiosInter.get("/api/customer").then(res => {
       res.data.customers.forEach(item => {
-        this.setState({
-          options: [
-            ...this.state.options,
-            {
-              value: item._id,
-              label: item.name,
-            },
-          ],
-        });
+        if (this.ref)
+          this.setState({
+            options: [
+              ...this.state.options,
+              {
+                value: item._id,
+                label: item.name,
+              },
+            ],
+          });
       });
     });
   };
   getWagons = async () => {
     await axiosInter.get("/api/carriage").then(res => {
       res.data.carriages.forEach(item => {
-        this.setState({
-          wagons: [
-            ...this.state.wagons,
-            {
-              value: item._id,
-              label: item.typeCarriage,
-            },
-          ],
-        });
+        if (this.ref)
+          this.setState({
+            wagons: [
+              ...this.state.wagons,
+              {
+                value: item._id,
+                label: item.typeCarriage,
+              },
+            ],
+          });
       });
     });
   };
   getStates = async () => {
     await axiosInter.get("/api/state").then(res => {
       const { states } = res.data;
-      this.setState({ states });
+      if (this.ref) this.setState({ states });
     });
   };
 
@@ -129,11 +210,29 @@ class HomeContainer extends Component {
     });
   };
   handleSelectChange = (e, type) => {
-    const { value } = e;
+    const { value, label } = e;
     const { name } = type;
-    this.setState({
-      [name]: value,
-    });
+    if (name === "customerId") {
+      this.setState({
+        defaultCustomerId: {
+          label,
+          value,
+        },
+        [name]: value,
+      });
+    } else if (name === "carriageId") {
+      this.setState({
+        defaultCarriageId: {
+          label,
+          value,
+        },
+        [name]: value,
+      });
+    } else {
+      this.setState({
+        [name]: value,
+      });
+    }
   };
   handleInputMoney = e => {
     const { name, value } = e.target;
@@ -146,7 +245,7 @@ class HomeContainer extends Component {
       });
     }
   };
-  handleSubmit = async e => {
+  handleSubmit = e => {
     e.preventDefault();
     const {
       date,
@@ -161,7 +260,7 @@ class HomeContainer extends Component {
       carriageCount,
       capacity,
       territoryTransportation,
-      territorialTotalCost,
+      generalRate,
       additionalFee,
       pricePerTon,
       sum,
@@ -170,7 +269,8 @@ class HomeContainer extends Component {
 
     let dateArr = date.split("/");
     const [day, month, year] = dateArr;
-    const dateIssue = new Date(year, month - 1, day);
+    const dateIssue = new Date(year, month - 1, day, 0, 0, 0, 0).toISOString();
+
     const data = {
       firm,
       dateIssue,
@@ -184,22 +284,28 @@ class HomeContainer extends Component {
       carriageCount,
       capacity,
       territoryTransportation,
-      territorialTotalCost,
+      generalRate,
       additionalFee,
       pricePerTon,
       tlg: {
-        uzsPrice: sum,
-        usdPrice: usb,
+        uzsPrice: Number(sum),
+        usdPrice: Number(usb),
       },
     };
-    await axiosInter
-      .post("/api/order", data)
+
+    const ipArr = window.location.pathname.split("/");
+    const id = ipArr[ipArr.length - 1];
+    const IpURL = id ? "/api/order/" + id : "/api/order";
+    const rest = id ? "put" : "post";
+
+    axiosInter[rest](IpURL, data)
       .then(res => {
         toast.success(res.data);
+        if (id) {
+          const { navigate } = this.props;
+          navigate("/order");
+        }
         this.setState({
-          options: [],
-          states: [],
-          wagons: [],
           date: "",
           senderStation: "",
           arrivalStation: "",
@@ -211,15 +317,18 @@ class HomeContainer extends Component {
           carriageCount: "",
           capacity: "",
           territoryTransportation: [],
-          territorialTotalCost: 0,
+          generalRate: 0,
           additionalFee: "",
           pricePerTon: 0,
           sum: "",
           usb: "",
+          defaultCustomerId: "",
+          defaultCarriageId: "",
+          defaultTerritoryTransportation: [],
         });
       })
       .catch(err => {
-        console.log(err.response.data);
+        console.log(err.response);
       });
   };
 
@@ -237,17 +346,17 @@ class HomeContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    menu: state.menu,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     menu: state.menu,
+//   };
+// };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    isCheckAuth: () => dispatch(isCheckAuth()),
-    Changemenu: menu => dispatch(ChangeMenu(menu)),
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     isCheckAuth: () => dispatch(isCheckAuth()),
+//     Changemenu: menu => dispatch(ChangeMenu(menu)),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

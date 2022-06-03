@@ -5,7 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import axiosInter from "./../../utils/axiosInterceptors";
 import "./modal.css";
 
-export default function ModalInfo({ id, text, setModalInfo }) {
+export default function ModalInfo({ id, text, setModalInfo, getOrders }) {
   const area = text ? text : "";
   const [infoText, setInfoText] = useState(area);
   const [infoColor, setColor] = useState("transparent");
@@ -17,10 +17,10 @@ export default function ModalInfo({ id, text, setModalInfo }) {
       infoText,
       infoColor,
     };
-    console.log(data);
     axiosInter.put("/api/order/info/" + id, data).then(res => {
       toast.success(res.data);
       setModalInfo(false);
+      getOrders();
     });
   };
 

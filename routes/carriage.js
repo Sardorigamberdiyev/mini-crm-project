@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
 
         const carriages = await Carriage.find({isDeleted: false}).skip(skip || 0).limit(limit || 0).select('typeCarriage');
         const carriagesMaxLength = await Carriage.countDocuments({isDeleted: false});
-
+        
         res.status(200).json({ carriages, carriagesMaxLength });
     } catch (e) {
         res.status(500).json(errMsg500);

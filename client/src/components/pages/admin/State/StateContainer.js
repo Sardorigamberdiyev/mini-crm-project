@@ -6,9 +6,7 @@ import State from "./States";
 class StateContainer extends Component {
   state = {
     name: "",
-    cost: "",
     nameValue: "",
-    costValue: "",
     skip: 0,
     limit: 10,
     statesMaxLength: 0,
@@ -53,20 +51,18 @@ class StateContainer extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const { costValue, nameValue } = this.state;
+    const { nameValue } = this.state;
 
-    const data = { cost: costValue, name: nameValue };
+    const data = { name: nameValue };
 
     await axiosInter
-      .post("/api/state", data)
+      .post("/api/country", data)
       .then(res => {
         toast.success(res.data);
         this.setState({
           uploadLoading: true,
           nameValue: "",
-          costValue: "",
           name: "",
-          cost: "",
         });
         this.getStates();
       })
@@ -88,17 +84,18 @@ class StateContainer extends Component {
   getStates = async () => {
     const { limit, skip } = this.state;
     await axiosInter
-      .get("/api/state/", {
+      .get("/api/country/", {
         params: {
           skip,
           limit,
         },
       })
       .then(res => {
-        const { statesMaxLength, states } = res.data;
+        const { countries, countriesMaxLength } = res.data;
+
         this.setState({
-          allStates: states,
-          statesMaxLength,
+          allStates: countries,
+          statesMaxLength: countriesMaxLength,
           loading: false,
           uploadLoading: false,
         });
@@ -106,7 +103,7 @@ class StateContainer extends Component {
   };
 
   deleteState = async id => {
-    await axiosInter.delete("/api/state/" + id).then(res => {
+    await axiosInter.delete("/api/country/" + id).then(res => {
       toast.success(res.data);
       this.getStates();
     });

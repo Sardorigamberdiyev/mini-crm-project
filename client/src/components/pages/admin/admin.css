@@ -90,14 +90,16 @@
 .push .push-wrapper .block .wagon .wagon_push,
 .push .push-wrapper .block .operator .operator_push,
 .push .push-wrapper .block .payer .payer_push,
-.push .push-wrapper .block .state .state_push {
+.push .push-wrapper .block .state .state_push,
+.push .push-wrapper .block .border .border_push {
   padding: 2rem;
   border-bottom: 2px solid #f7f7f9;
 }
 .push .push-wrapper .block .wagon .wagon_push h1,
 .push .push-wrapper .block .operator .operator_push h1,
 .push .push-wrapper .block .payer .payer_push h1,
-.push .push-wrapper .block .state .state_push h1 {
+.push .push-wrapper .block .state .state_push h1,
+.push .push-wrapper .block .border .border_push h1 {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -116,7 +118,8 @@
 
 .push .push-wrapper .block .operator .operator_push form,
 .push .push-wrapper .block .payer .payer_push form,
-.push .push-wrapper .block .state .state_push form {
+.push .push-wrapper .block .state .state_push form,
+.push .push-wrapper .block .border .border_push form {
   padding-top: 2rem;
   width: 90%;
   display: flex;
@@ -133,9 +136,48 @@
   align-items: center;
 }
 
+.push .push-wrapper .block .border .border_push .select {
+  width: 40%;
+  margin-bottom: 2rem;
+}
+.push .push-wrapper .block .border .border_push form .assistant_input {
+  width: 20%;
+}
+
+.push .push-wrapper .block .border .border_push form .assistant_input input {
+  padding: 0.9rem;
+}
+.push .push-wrapper .block .border .border_push .select .css-1s2u09g-control,
+.push .push-wrapper .block .border .border_push .select .css-1pahdxg-control {
+  width: calc(100% - 2rem);
+  background: #fafafa;
+  border: 1px solid #efeef0;
+  border-radius: 6px;
+  padding: 0.3rem 1rem;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+  box-shadow: 0 0 1px #3a4a6b;
+  outline: 2px solid #000;
+}
+
+.push .push-wrapper .block .border .border_push .select .css-26l3qy-menu {
+  width: calc(100% - 2rem);
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #636873;
+}
+
 .push .push-wrapper .block .operator .operator_push form .button,
 .push .push-wrapper .block .payer .payer_push form .button,
-.push .push-wrapper .block .state .state_push form .button {
+.push .push-wrapper .block .state .state_push form .button,
+.push .push-wrapper .block .border .border_push form .button {
   width: 100%;
   display: flex;
   align-items: center;

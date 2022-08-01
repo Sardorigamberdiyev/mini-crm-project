@@ -11,6 +11,7 @@ import {
   AdminState,
   AdminOperator,
   AdminWagon,
+  AdminBorder,
   Overhead,
 } from "./components/pages";
 
@@ -28,6 +29,7 @@ const useRoutes = (isAuth, authRole) => {
           <Route path="operator" element={<AdminOperator />} />
           <Route path="payer" element={<AdminPayer />} />
           <Route path="state" element={<AdminState />} />
+          <Route path="border" element={<AdminBorder />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

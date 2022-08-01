@@ -8,6 +8,7 @@ import AdminWagon from "./admin/Wagon/WagonContainer";
 import AdminOperator from "./admin/Operator/OperatorContainer";
 import AdminPayer from "./admin/Payer/PayerContainer";
 import AdminState from "./admin/State/StateContainer";
+import AdminBorder from "./admin/Border/BorderContainer";
 
 export {
   Login,
@@ -19,5 +20,6 @@ export {
   AdminState,
   AdminOperator,
   AdminWagon,
+  AdminBorder,
   Overhead,
 };

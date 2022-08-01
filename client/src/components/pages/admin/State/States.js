@@ -7,9 +7,7 @@ import { Spiner } from "../../../assistant";
 export default function States(props) {
   const {
     name,
-    cost,
     nameValue,
-    costValue,
     allStates,
     loading,
     uploadLoading,
@@ -27,7 +25,7 @@ export default function States(props) {
     dispatch(ChangeAdminMenu("state"));
   }, [dispatch]);
   return (
-    <div className="state">
+    <div className="admin state">
       <div className="state_push">
         <h1>Госуарства</h1>
         <form onSubmit={onSubmit}>
@@ -38,14 +36,6 @@ export default function States(props) {
             onChange={onChange}
             value={nameValue}
             error={name}
-          />
-          <Input
-            placeholder="10.2 USD"
-            type="text"
-            name="costValue"
-            onChange={onChange}
-            value={costValue}
-            error={cost}
           />
           <div className="button">
             <Button type="submit">Добавлять</Button>
@@ -63,7 +53,7 @@ export default function States(props) {
                   key={item._id}
                   onDelete={onDelete}
                   id={item._id}
-                  textArray={[item.name, `${item.cost} USD`]}
+                  textArray={[item.name]}
                 />
               ))}
             </div>

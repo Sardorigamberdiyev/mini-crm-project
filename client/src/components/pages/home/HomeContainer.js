@@ -193,8 +193,8 @@ class Container extends PureComponent {
   };
   getStates = async () => {
     await axiosInter.get("/api/state").then(res => {
-      const { states } = res.data;
-      if (this.ref) this.setState({ states });
+      const { countries } = res.data;
+      if (this.ref) this.setState({ states: countries });
     });
   };
 

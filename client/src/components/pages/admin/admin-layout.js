@@ -28,6 +28,9 @@ export default function AdminLayout() {
             <li className={menu === "state" ? "active" : ""}>
               <Link to="state">Государства</Link>
             </li>
+            <li className={menu === "border" ? "active" : ""}>
+              <Link to="border">Граница</Link>
+            </li>
           </ul>
         </div>
         <div className="block">

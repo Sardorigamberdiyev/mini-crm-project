@@ -79,6 +79,7 @@ class OrderContainer extends Component {
       })
       .then(res => {
         const { orders, ordersMaxLength } = res.data;
+
         if (this.ref)
           this.setState({
             orders,

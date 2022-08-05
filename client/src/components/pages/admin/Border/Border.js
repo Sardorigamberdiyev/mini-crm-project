@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { ChangeAdminMenu } from "../../../../actions";
-import { Element, Button, Input, Pagination } from "../../../assistant";
+import { Element, Button, Input } from "../../../assistant";
 import { Spiner } from "../../../assistant";
 
 function Border(props) {

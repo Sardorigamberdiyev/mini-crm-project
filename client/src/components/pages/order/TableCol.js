@@ -17,16 +17,20 @@ export default function TableCol(props) {
     <tr>
       <td>{getDate(item.date)}</td>
       <td className="states">
-        <Popover
-          content={popover(item.territoryTransportation, item._id)}
-          placement="bottom"
-        >
-          <Button>
-            {item.territoryTransportation[0].firstCode +
-              " - " +
-              item.territoryTransportation[0].lastCode}
-          </Button>
-        </Popover>
+        {item.territoryTransportation.length > 0 ? (
+          <Popover
+            content={popover(item.territoryTransportation, item._id)}
+            placement="bottom"
+          >
+            <Button>
+              {item.territoryTransportation[0].firstCode +
+                " - " +
+                item.territoryTransportation[0].lastCode}
+            </Button>
+          </Popover>
+        ) : (
+          "-"
+        )}
       </td>
       <td>{item.senderStation}</td>
       <td>{item.arrivalStation}</td>

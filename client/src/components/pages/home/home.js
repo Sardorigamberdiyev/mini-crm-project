@@ -23,9 +23,10 @@ const Home = props => {
     sum,
     usb,
     options,
+    countries,
     defaultCustomerId,
     defaultCarriageId,
-    states,
+    customHouseFees,
     onInputMoney,
     onSelectChange,
     handleState,
@@ -177,15 +178,23 @@ const Home = props => {
           </div>
           <div className="form-calculator">
             <div className="calculator">
-              {states.map(item => (
-                <Transportation
-                  key={item._id}
-                  items={item}
-                  totalCost={generalRate}
-                  handleState={handleState}
-                  territories={territoryTransportation}
-                />
-              ))}
+              {countries.map(item => {
+                const custom = customHouseFees.find(
+                  i => i.countryId._id === item._id,
+                );
+                const have = custom ? true : false;
+                return (
+                  <Transportation
+                    key={item._id}
+                    state={item}
+                    have={have}
+                    items={custom}
+                    totalCost={generalRate}
+                    handleState={handleState}
+                    territories={territoryTransportation}
+                  />
+                );
+              })}
             </div>
             <div className="main">
               <p>Общий стоимость</p>

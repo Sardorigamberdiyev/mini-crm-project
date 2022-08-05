@@ -9,12 +9,21 @@ export const popover = (items, id) => {
   };
   return (
     <div className="popover">
-      {items.map(item => (
-        <div key={item._id} className="state" onClick={onLink}>
-          <span>{item.stateId.name}: </span>
-          {item.firstCode} - {item.lastCode}
-        </div>
-      ))}
+      {items.map(item => {
+        const {
+          lastCode,
+          firstCode,
+          customHouseFeeId: {
+            countryId: { name },
+          },
+        } = item;
+        return (
+          <div key={item._id} className="state" onClick={onLink}>
+            <span>{name}: </span>
+            {firstCode} - {lastCode}
+          </div>
+        );
+      })}
     </div>
   );
 };

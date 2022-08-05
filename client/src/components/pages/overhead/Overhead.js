@@ -15,16 +15,23 @@ export default function Overhead(props) {
           <h1>Накладной</h1>
           <div className="count_number">№</div>
           <Tabs defaultActiveKey="1">
-            {orderStates.map((item, id) => (
-              <TabPane tab={item.stateId.name} key={id + 1}>
-                <FormContainer
-                  orderId={orderId}
-                  stateId={item.stateId._id}
-                  firstCode={item.firstCode}
-                  lastCode={item.lastCode}
-                />
-              </TabPane>
-            ))}
+            {orderStates.map((item, id) => {
+              const {
+                firstCode,
+                lastCode,
+                customHouseFeeId: { countryId },
+              } = item;
+              return (
+                <TabPane tab={countryId.name} key={id + 1}>
+                  <FormContainer
+                    orderId={orderId}
+                    stateId={countryId._id}
+                    firstCode={firstCode}
+                    lastCode={lastCode}
+                  />
+                </TabPane>
+              );
+            })}
           </Tabs>
         </div>
         {order !== null ? (

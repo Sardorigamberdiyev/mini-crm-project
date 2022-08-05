@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function Transportation(props) {
-  const { items, territories, totalCost, handleState } = props;
+  const { items, territories, totalCost, handleState, have, state } = props;
 
   const [code, setCode] = useState(true);
   const [firstCode, setFirstCode] = useState("");
@@ -9,15 +9,17 @@ export default function Transportation(props) {
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    let data = territories.filter(item => item.stateId._id !== items._id);
+    let data = territories.filter(
+      item => item.customHouseFeeId.countryId._id !== state._id,
+    );
 
     if (name === "firstCode") {
       setFirstCode(value);
       handleState("territoryTransportation", [
         ...data,
         {
-          stateId: items,
-          stateCost: items.cost,
+          customHouseFeeId: items,
+          stateCost: items.price,
           firstCode: value,
           lastCode,
         },
@@ -27,8 +29,8 @@ export default function Transportation(props) {
       handleState("territoryTransportation", [
         ...data,
         {
-          stateId: items,
-          stateCost: items.cost,
+          customHouseFeeId: items,
+          stateCost: items.price,
           firstCode,
           lastCode: value,
         },
@@ -36,36 +38,40 @@ export default function Transportation(props) {
     }
   };
   const handleCode = () => {
-    let cost = 0;
-    if (!code) {
-      let data = territories.filter(item => item.stateId._id !== items._id);
-      handleState("territoryTransportation", data);
-      setFirstCode("");
-      setLastCode("");
+    if (have) {
+      let cost = 0;
+      if (!code) {
+        let data = territories.filter(
+          item => item.customHouseFeeId.countryId._id !== state._id,
+        );
+        handleState("territoryTransportation", data);
+        setFirstCode("");
+        setLastCode("");
 
-      if (totalCost > 0) {
-        cost = totalCost - items.cost;
+        if (totalCost > 0) {
+          cost = totalCost - items.price;
+        }
+      } else if (have && code) {
+        handleState("territoryTransportation", [
+          ...territories,
+          {
+            customHouseFeeId: items,
+            firstCode: 0,
+            lastCode: 0,
+            stateCost: 0,
+          },
+        ]);
+        cost = totalCost + items.price;
       }
-    } else {
-      handleState("territoryTransportation", [
-        ...territories,
-        {
-          stateId: items,
-          firstCode: 0,
-          lastCode: 0,
-          stateCost: 0,
-        },
-      ]);
-      cost = totalCost + items.cost;
+      cost = Math.round(cost * 10000) / 10000;
+      handleState("generalRate", cost);
+      setCode(!code);
     }
-    cost = Math.round(cost * 10000) / 10000;
-    handleState("generalRate", cost);
-    setCode(!code);
   };
 
   useEffect(() => {
     const defaultItem = territories.filter(
-      item => item.stateId._id === items._id,
+      item => item.customHouseFeeId.countryId._id === state._id,
     )[0];
     const defaultCode = typeof defaultItem !== "object";
     const defaultFirstCode = defaultCode ? "" : defaultItem.firstCode;
@@ -78,9 +84,11 @@ export default function Transportation(props) {
   return (
     <div className="transportation">
       <div className={`country ${code ? "" : "active"}`} onClick={handleCode}>
-        {items.name}
+        {state.name}
       </div>
-      <div className={`money ${code ? "notactive" : ""}`}>{items.cost} USD</div>
+      <div className={`money ${code ? "notactive" : ""}`}>
+        {have ? items.price : ""} USD
+      </div>
       <input
         type="number"
         disabled={code}

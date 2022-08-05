@@ -18,7 +18,8 @@ class Container extends PureComponent {
     super(props);
     this.state = {
       options: [],
-      states: [],
+      customHouseFees: [],
+      countries: [],
       wagons: [],
       firm: "firm-1",
       date: "",
@@ -127,6 +128,7 @@ class Container extends PureComponent {
         label: carriageId.typeCarriage,
         value: carriageId._id,
       };
+      this.getCustomHouseFee(carriageId._id);
       const date = new Date(dateIssue),
         day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate(),
         month = date.getMonth() > 9 ? date.getMonth() : "0" + date.getMonth(),
@@ -191,13 +193,24 @@ class Container extends PureComponent {
       });
     });
   };
+  getCustomHouseFee = async (carriageId = null) => {
+    await axiosInter
+      .get("/api/customHouseFee", {
+        params: {
+          carriageId,
+        },
+      })
+      .then(res => {
+        const customHouseFees = res.data;
+        this.setState({ customHouseFees });
+      });
+  };
   getStates = async () => {
-    await axiosInter.get("/api/state").then(res => {
+    await axiosInter.get("/api/country").then(res => {
       const { countries } = res.data;
-      if (this.ref) this.setState({ states: countries });
+      this.setState({ countries });
     });
   };
-
   handleState = (key, value) => {
     this.setState({
       [key]: value,
@@ -227,7 +240,10 @@ class Container extends PureComponent {
           value,
         },
         [name]: value,
+        territoryTransportation: [],
+        generalRate: 0,
       });
+      this.getCustomHouseFee(value);
     } else {
       this.setState({
         [name]: value,
@@ -271,19 +287,32 @@ class Container extends PureComponent {
     const [day, month, year] = dateArr;
     const dateIssue = new Date(year, month - 1, day, 0, 0, 0, 0).toISOString();
 
+    const territories = territoryTransportation.map(item => {
+      const {
+        firstCode,
+        lastCode,
+        customHouseFeeId: { _id: customHouseFeeId },
+      } = item;
+      return {
+        firstCode,
+        lastCode,
+        customHouseFeeId,
+      };
+    });
+
     const data = {
       firm,
       dateIssue,
       senderStation,
       arrivalStation,
-      carriageId,
       customerId,
       sender,
       recipient,
       cargoType,
+      carriageId,
       carriageCount,
       capacity,
-      territoryTransportation,
+      territoryTransportation: territories,
       generalRate,
       additionalFee,
       pricePerTon,
@@ -305,27 +334,27 @@ class Container extends PureComponent {
           const { navigate } = this.props;
           navigate("/order");
         }
-        this.setState({
-          date: "",
-          senderStation: "",
-          arrivalStation: "",
-          customerId: "",
-          sender: "",
-          recipient: "",
-          cargoType: "мпс",
-          carriageId: "",
-          carriageCount: "",
-          capacity: "",
-          territoryTransportation: [],
-          generalRate: 0,
-          additionalFee: "",
-          pricePerTon: 0,
-          sum: "",
-          usb: "",
-          defaultCustomerId: "",
-          defaultCarriageId: "",
-          defaultTerritoryTransportation: [],
-        });
+        // this.setState({
+        //   date: "",
+        //   senderStation: "",
+        //   arrivalStation: "",
+        //   customerId: "",
+        //   sender: "",
+        //   recipient: "",
+        //   cargoType: "мпс",
+        //   carriageId: "",
+        //   carriageCount: "",
+        //   capacity: "",
+        //   territoryTransportation: [],
+        //   generalRate: 0,
+        //   additionalFee: "",
+        //   pricePerTon: 0,
+        //   sum: "",
+        //   usb: "",
+        //   defaultCustomerId: "",
+        //   defaultCarriageId: "",
+        //   defaultTerritoryTransportation: [],
+        // });
       })
       .catch(err => {
         console.log(err.response);

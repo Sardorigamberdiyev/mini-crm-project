@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const XLSX = require('xlsx');
 const { validationResult } = require('express-validator');
 const { orderValidator } = require('../utils/validator');
+const { populateToPopulateOrder } = require('../utils/variables');
 const { 
     errMsg500, 
     msgDeleted200, 
@@ -23,7 +24,7 @@ const {
 const todayDate = require('../utils/today-date');
 const Order = require('../models/order');
 const Customer = require('../models/customer');
-const State = require('../models/state');
+const Country = require('../models/country');
 const Carriage = require('../models/carriage');
 const router = Router();
 
@@ -69,12 +70,12 @@ const router = Router();
  */
 router.get('/', async (req, res) => {
     try {
-        console.log(req.query);
         const { skip, limit, term, debt, startDate, endDate } = req.query;
 
-        const customerIds = ((term && await Customer.find({name: {$regex: `^${term}`}})
-                                                    .select('_id')) || [])
-                                                    .map(c => c._id);
+        const customerIds = ((term && await Customer
+        .find({name: {$regex: `^${term}`}})                  
+        .select('_id')) || [])
+        .map(c => c._id);
 
         const customerByIds = term ? {customerId: {$in: customerIds}} : {};
         const orderByDate = startDate && endDate ? {date: {$gte: startDate, $lte: endDate}} : {};
@@ -87,12 +88,14 @@ router.get('/', async (req, res) => {
             ...orderByDebt
         }
 
-        const orders = await Order.find(filter)
-                                  .skip(skip || 0)
-                                  .limit(limit || 12)
-                                  .populate('carriageId customerId territoryTransportation.stateId')
-                                  .sort({date: -1})
-                                  .select('-__v');
+        const orders = await Order
+        .find(filter)          
+        .skip(skip || 0)                      
+        .limit(limit || 12)
+        .populate('carriageId userId customerId', '-__v -password -role')
+        .populate(populateToPopulateOrder)
+        .sort({date: -1})
+        .select('-__v');
 
         const ordersMaxLength = await Order.countDocuments(filter);
 
@@ -162,28 +165,33 @@ router.get('/xlsx', async (req, res) => {
         const { startDate, endDate } = req.query;
         const filterByDate = startDate && endDate ? {date: {$gte: startDate, $lte: endDate}} : {};
         const filter = {isDeleted: false, ...filterByDate};
+        
+        const orders = await Order
+        .find(filter)
+        .populate('carriageId', 'typeCarriage')
+        .populate(populateToPopulateOrder)
+        .select('-__v -userId -date -changedProperties');
 
-        const orders = await Order.find(filter)
-                                  .populate('carriageId territoryTransportation.stateId', 'typeCarriage name cost')
-                                  .select('-__v -userId -date -changedProperties');
         const oLength = await Order.countDocuments(filter);
-        const states = await State.find({isDeleted: false}).select('name cost');
+        
+        const countries = await Country
+        .find({isDeleted: false})
+        .select('name');
 
-        const keysStates = Object.keys(states);
-        const keysLength = keysStates.length;
+        const countriesLength = countries.length;
 
         let formulaTotalCost = '';
-        keysStates.forEach((value, index) => {
+        countries.forEach((value, index) => {
             const num = 10 + index + 1;
-            formulaTotalCost += `${cell(num, oLength)}${keysLength > index + 1 ? '+' : ''}`;
+            formulaTotalCost += `${cell(num, oLength)}${countriesLength > index + 1 ? '+' : ''}`;
         });
 
-        const xlsxData = orders.map((order) => rowOrderItem(order, states));
+        const xlsxData = orders.map((order) => rowOrderItem(order, countries));
 
         const wb = XLSX.utils.book_new();
         const ws = XLSX.utils.json_to_sheet(xlsxData);
 
-        const lastStateColl = 10 + keysLength;
+        const lastStateColl = 10 + countriesLength;
         const aFeeColl = lastStateColl + 2;
         const tTotalRateColl = lastStateColl + 1;
         const pricePerTonColl = lastStateColl + 3;
@@ -265,6 +273,7 @@ router.get('/xlsx', async (req, res) => {
 
         res.download(path.join(__dirname, `../xlsx/${xlsxFileName}`));
     } catch (e) {
+        console.log(e);
         res.status(500).json(errMsg500);
     }
 });
@@ -296,14 +305,14 @@ router.get('/:orderId', async (req, res) => {
             return res.status(404).json(errMsg404);
 
         const order = await Order.findOne({_id: orderId, isDeleted: false})
-                                 .populate('carriageId customerId territoryTransportation.stateId', '-__v')
+                                 .populate('carriageId userId customerId', '-__v -password -role')
+                                 .populate(populateToPopulateOrder)
                                  .select('-__v');
         if (!order)
             return res.status(404).json(errMsg404);
 
         res.status(200).json(order);
     } catch (e) {
-        console.log(e)
         res.status(500).json(errMsg500);
     }
 });
@@ -432,7 +441,6 @@ router.put('/:orderId', orderValidator, async (req, res) => {
 
         res.status(200).json(msgEdited200);
     } catch (e) {
-        console.log(e);
         res.status(500).json(errMsg500);
     }
 });
@@ -522,7 +530,6 @@ router.put('/info/:orderId', async (req, res) => {
  */
 router.put('/wagon/return/:orderId', async (req, res) => {
     try {
-        console.log(req.body);
         const { orderId } = req.params;
         const { carriageReturn } = req.body;
         const filter = {_id: orderId, isDeleted: false};

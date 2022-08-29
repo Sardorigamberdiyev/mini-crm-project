@@ -34,8 +34,8 @@ const router = Router();
  *                        - login
  *                        - password
  *                  example:
- *                        login: sardor123
- *                        password: s1234567
+ *                        login: admin
+ *                        password: 123456
  *   responses:
  *      200:
  *       description: Успешно вошли в систему

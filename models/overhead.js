@@ -6,9 +6,9 @@ const overheadSchema = new Schema({
         ref: 'Order',
         required: true
     },
-    stateId: {
+    countryId: {
         type: Schema.Types.ObjectId,
-        ref: 'State',
+        ref: 'Country',
         required: true
     },
     items: [

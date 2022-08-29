@@ -22,7 +22,7 @@ const router = Router();
  *              orderId:
  *                  type: string
  *                  description: ID заказа
- *              stateId:
+ *              countryId:
  *                  type: string
  *                  description: ID государство
  *      required: true
@@ -34,12 +34,12 @@ const router = Router();
  */
  router.get('/order', async (req, res) => {
     try {
-        const { orderId, stateId } = req.query;
+        const { orderId, countryId } = req.query;
         
-        if (!(isObjectIdOrHexString(orderId) || isObjectIdOrHexString(stateId)))
+        if (!(isObjectIdOrHexString(orderId) || isObjectIdOrHexString(countryId)))
             return res.status(404).json(errMsg404);
 
-        const overhead = await Overhead.findOne({orderId, stateId}).select('-__v');
+        const overhead = await Overhead.findOne({orderId, countryId}).select('-__v');
 
         res.status(200).json(overhead);
     } catch (e) {
@@ -70,7 +70,7 @@ router.get('/:overheadId', async (req, res) => {
     try {
         const { overheadId } = req.params;
         const overhead = await Overhead.findById(overheadId)
-                                       .populate('orderId stateId', '-__v')
+                                       .populate('orderId countryId', '-__v')
                                        .select('-__v');
         
         res.status(200).json(overhead);
@@ -104,14 +104,14 @@ router.get('/:overheadId', async (req, res) => {
  */
 router.post('/', async (req, res) => {
     try {
-        const { orderId, stateId } = req.body;
+        const { orderId, countryId } = req.body;
 
         const orderFilter = {
             _id: orderId,
-            territoryTransportation: { $elemMatch: { stateId }},
+            territoryTransportation: { $elemMatch: { countryId }},
             isDelete: false
         };
-        const overheadFilter = {orderId, stateId};
+        const overheadFilter = {orderId, countryId};
 
         const order = await Order.findOne(orderFilter);
         const overhead = await Overhead.findOne(overheadFilter);
@@ -127,7 +127,6 @@ router.post('/', async (req, res) => {
         
         res.status(200).json(!overhead ? msg201 : msgEdited200);
     } catch (e) {
-        console.log(e);
         res.status(500).json(errMsg500);
     }
 });

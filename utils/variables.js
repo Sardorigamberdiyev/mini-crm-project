@@ -11,3 +11,11 @@ exports.msg201 = 'Успешно добавлено';
 exports.msg200 = 'Успешно выполнено';
 exports.msgDeleted200 = 'Успешно удалено';
 exports.msgEdited200 = 'Успешно изменено';
+exports.populateToPopulateOrder = {
+    path: 'territoryTransportation.customHouseFeeId',
+    select: '-__v',
+    populate: [
+        {path: 'carriageId', select: '-__v'},
+        {path: 'countryId', select: '-__v'}
+    ]
+}

@@ -78,9 +78,9 @@ const orderSchema = new Schema({
     },
     territoryTransportation: [
         {
-            stateId: {
+            customHouseFeeId: {
                 type: Schema.Types.ObjectId,
-                ref: 'State',
+                ref: 'CustomHouseFee',
                 required: true
             },
             firstCode: {
@@ -88,10 +88,6 @@ const orderSchema = new Schema({
                 required: true
             },
             lastCode: {
-                type: Number,
-                required: true
-            },
-            stateCost: {
                 type: Number,
                 required: true
             }

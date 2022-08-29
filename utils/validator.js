@@ -35,7 +35,7 @@ exports.orderValidator = [
     body('carriageId', 'Поля вагон обязательное').isLength({ min: 1 }),
     body('carriageCount', 'Поля кол-во вагонов должен быть числовым').isNumeric(),
     body('capacity', 'Поля объем должен быть числовым').isNumeric(),
-    body('territoryTransportation.*.stateId').isLength({ min: 1 }),
+    body('territoryTransportation.*.customHouseFeeId').isLength({ min: 1 }),
     body('territoryTransportation.*.firstCode').isNumeric(),
     body('territoryTransportation.*.lastCode').isNumeric(),
     body('generalRate', 'Поля должен быть числовым').isNumeric(),
@@ -45,9 +45,8 @@ exports.orderValidator = [
     body('tlg.usdPrice', 'Поля должен быть числовым').isNumeric()
 ]
 
-exports.stateValidator = [
-    body('name', 'Поля наз. обязатаельное поле').isLength({ min: 1 }),
-    body('cost', 'Поля цен. обязательное поле').isLength({ min: 1 })
+exports.countryValidator = [
+    body('name', 'Поля наз. обязатаельное поле').isLength({ min: 1 })
 ];
 
 exports.loginValidator = [

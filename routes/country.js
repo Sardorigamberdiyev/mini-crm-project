@@ -1,19 +1,18 @@
 const { Router } = require('express');
 const { validationResult } = require('express-validator');
-const { stateValidator } = require('../utils/validator');
+const { countryValidator } = require('../utils/validator');
 const { validatorJsonData } = require('../utils/func-helpers');
 const { errMsg500, msg201, msgDeleted200, msgEdited200, errMsg404 } = require('../utils/variables');
-const State = require('../models/state');
-const Carriage = require('../models/carriage');
+const Country = require('../models/country');
 
 const router = Router();
 
 /**
  * @swagger
- * /api/state/:
+ * /api/country/:
  *  get:
  *   summary: Получить список государств
- *   tags: [State]
+ *   tags: [Country]
  *   parameters:
  *    - in: query
  *      name: pagination
@@ -37,11 +36,14 @@ const router = Router();
 router.get('/', async (req, res) => {
     try {
         const { skip, limit } = req.query;
+        const filter = {isDeleted: false};
+        const countries = await Country
+        .find(filter)
+        .skip(skip || 0)
+        .limit(limit || 0);
+        const countriesMaxLength = await Country.countDocuments(filter);
 
-        const states = await State.find({isDeleted: false}).skip(skip || 0).limit(limit || 0);
-        const statesMaxLength = await State.countDocuments({isDeleted: false});
-
-        res.status(200).json({ states, statesMaxLength })
+        res.status(200).json({ countries, countriesMaxLength })
     } catch (e) {
         res.status(500).json(errMsg500);
     }
@@ -49,13 +51,13 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /api/state/{stateId}:
+ * /api/country/{countryId}:
  *  get:
  *   summary: Получить государств по id
- *   tags: [State]
+ *   tags: [Country]
  *   parameters:
  *    - in: path
- *      name: stateId
+ *      name: countryId
  *      schema:
  *         type: string
  *      description: Ввести ID государств
@@ -66,13 +68,16 @@ router.get('/', async (req, res) => {
  *      500:
  *       description: Что-то пошло не так
  */
-router.get('/:stateId', async (req, res) => {
+router.get('/:countryId', async (req, res) => {
     try {
-        const { stateId } = req.params;
+        const { countryId } = req.params;
+        const filter = {_id: countryId, isDeleted: false};
+        const country = await Country.findOne(filter);
 
-        const state = await State.findOne({_id: stateId, isDeleted: false});
+        if (!country)
+            return res.status(404).json(errMsg404);
 
-        res.status(200).json(state);
+        res.status(200).json(country);
     } catch (e) {
         res.status(500).json(errMsg500);
     }
@@ -80,20 +85,20 @@ router.get('/:stateId', async (req, res) => {
 
 /**
  * @swagger
- * /api/state/{stateId}:
+ * /api/country/{countryId}:
  *  put:
  *   summary: Изменить данные государство
- *   tags: [State]
+ *   tags: [Country]
  *   requestBody:
  *      required: true
  *      content:
  *          application/json:
  *              schema:
  *                  type: object
- *                  $ref: '#/components/schemas/State'
+ *                  $ref: '#/components/schemas/Country'
  *   parameters:
  *    - in: path
- *      name: stateId
+ *      name: countryId
  *      required: true
  *      schema:
  *          type: string
@@ -106,20 +111,22 @@ router.get('/:stateId', async (req, res) => {
  *      500:
  *       description: Что-то пошло не так
  */
-router.put('/:stateId', stateValidator, async (req, res) => {
+router.put('/:countryId', countryValidator, async (req, res) => {
     try {
         const errors = validationResult(req);
-        if (!errors.isEmpty()) return res.status(400).json(validatorJsonData(errors));
+        if (!errors.isEmpty()) 
+            return res.status(400).json(validatorJsonData(errors));
 
-        const { stateId } = req.params;
-        const { name, cost } = req.body;
+        const { countryId } = req.params;
+        const { name } = req.body;
 
-        const state = await State.findOne({_id: stateId, isDeleted: false});
-        if (!state) return res.status(404).json(errMsg404);
+        const filter = {_id: countryId, isDeleted: false};
+        const country = await Country.findOne(filter);
+        if (!country) 
+            return res.status(404).json(errMsg404);
 
-        state.name = name;
-        state.cost = cost;
-        await state.save();
+        country.name = name;
+        await country.save();
 
         res.status(200).json(msgEdited200);
     } catch (e) {
@@ -129,17 +136,17 @@ router.put('/:stateId', stateValidator, async (req, res) => {
 
 /**
  * @swagger
- * /api/state:
+ * /api/country:
  *  post:
  *   summary: Добавить государство
- *   tags: [State]
+ *   tags: [Country]
  *   requestBody:
  *      required: true
  *      content:
  *          application/json:
  *              schema:
  *                  type: object
- *                  $ref: '#/components/schemas/State'
+ *                  $ref: '#/components/schemas/Country'
  *   responses:
  *      201:
  *       description: Успешно добавлено
@@ -148,19 +155,13 @@ router.put('/:stateId', stateValidator, async (req, res) => {
  *      500:
  *       description: Что-то пошло не так
  */
-router.post('/', stateValidator, async (req, res) => {
+router.post('/', countryValidator, async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) 
             return res.status(400).json(validatorJsonData(errors));
 
-        // const { carriageId, name } = req.body;
-
-        // const carriage = await Carriage.findOne({_id: carriageId, isDeleted: false});
-        // if (!carriage)
-        //     return res.status(404).json(errMsg404);
-
-        await (new State({...req.body})).save();
+        await (new Country({...req.body})).save();
 
         res.status(201).json(msg201);
     } catch (e) {
@@ -170,13 +171,13 @@ router.post('/', stateValidator, async (req, res) => {
 
 /**
  * @swagger
- * /api/state/{stateId}:
+ * /api/country/{countryId}:
  *  delete:
  *   summary: Удалить государств
- *   tags: [State]
+ *   tags: [Country]
  *   parameters:
  *      - in: path
- *        name: stateId
+ *        name: countryId
  *        schema:
  *          type: string
  *        required: true
@@ -187,13 +188,13 @@ router.post('/', stateValidator, async (req, res) => {
  *      500:
  *       description: Что-то пошло не так
  */
-router.delete('/:stateId', async (req, res) => {
+router.delete('/:countryId', async (req, res) => {
     try {
-        const { stateId } = req.params;
+        const { countryId } = req.params;
 
-        const state = await State.findById(stateId);
-        state.isDeleted = true;
-        await state.save();
+        const country = await Country.findById(countryId);
+        country.isDeleted = true;
+        await country.save();
 
         res.status(200).json(msgDeleted200);
     } catch (e) {

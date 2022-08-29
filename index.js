@@ -13,9 +13,10 @@ const userRoutes = require('./routes/user');
 const tokenRoutes = require('./routes/token');
 const customerRoutes = require('./routes/customer');
 const carriageRoutes = require('./routes/carriage');
-const stateRoutes = require('./routes/state');
+const stateRoutes = require('./routes/country');
 const orderRoutes = require('./routes/order');
 const overheadRoutes = require('./routes/overhead');
+const customHouseFeeRoutes = require('./routes/customHouseFee');
 
 const app = express();
 const PORT = config.get('port') || 5000;
@@ -67,26 +68,16 @@ const swaggerOptions = {
  *            password: q1234567
  *            confirm: q1234567
  *            role: admin
- *      State:
+ *      Country:
  *        type: object
  *        properties:
  *          name:
  *              type: string
  *              description: Название государство
- *          cost:
- *              type: number
- *              description: цена за проход
- *          carriageId:
- *              type: string
- *              description: Ввести ID тип вагона
  *        required:
  *            - name
- *            - cost
- *            - carriageId
  *        example:
  *            name: Узб
- *            cost: 4.5
- *            carriageId: carriageId
  *      Customer:
  *        type: object
  *        properties:
@@ -105,10 +96,34 @@ const swaggerOptions = {
  *        properties: 
  *          typeCarriage:
  *              type: string
+ *          stateId:
+ *              type: string
  *        required:
  *          - typeCarriage
+ *          - stateId
  *        example:
  *            typeCarriage: спс
+ *            stateId: id
+ *      CustomHouseFee:
+ *        type: object
+ *        properties:
+ *          carriageId:
+ *              type: string
+ *              description: Id вагона
+ *          countryId:
+ *              type: string
+ *              description: id страны
+ *          price:
+ *              type: number
+ *              description: цена прохода с разтаможки
+ *        required:
+ *          - carriageId
+ *          - countryId
+ *          - price
+ *        example:
+ *            carriageId: id
+ *            countryId: id
+ *            price: 100000 
  *      Order:
  *        type: object
  *        properties:
@@ -150,18 +165,15 @@ const swaggerOptions = {
  *              items:
  *                  type: object
  *                  properties:
- *                      stateId:
+ *                      customHouseFeeId:
  *                          type: string
- *                          description: ID государство
+ *                          description: ID разтаможки
  *                      firstCode:
  *                          type: number
  *                          description: Начальный код государство
  *                      lastCode:
  *                          type: number
  *                          description: Конечный код государство
- *                      stateCost:
- *                          type: number
- *                          description: Цена государство
  *          generalRate:
  *              type: number
  *              description: Общая ставка
@@ -251,9 +263,10 @@ app.use('/api/token', tokenRoutes);
 app.use('/api/user', isAuthMiddleware, userRoutes);
 app.use('/api/customer', isAuthMiddleware, customerRoutes);
 app.use('/api/carriage', isAuthMiddleware, carriageRoutes);
-app.use('/api/state', isAuthMiddleware, stateRoutes);
+app.use('/api/country', isAuthMiddleware, stateRoutes);
 app.use('/api/order', isAuthMiddleware, orderRoutes);
 app.use('/api/overhead', isAuthMiddleware, overheadRoutes);
+app.use('/api/customHouseFee', isAuthMiddleware, customHouseFeeRoutes);
 
 if (isProduction) {
     app.use('/', express.static(path.join(__dirname, 'client', 'build')));

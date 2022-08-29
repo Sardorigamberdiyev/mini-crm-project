@@ -3,13 +3,13 @@ const { errMsg401, msgLogout200 } = require('../utils/variables');
 
 exports.validatorJsonData = (errors) => ({errors: errors.array(), errMsg: 'Вы не прошли валидацию'});
 
-exports.rowOrderItem = (order, states) => {
+exports.rowOrderItem = (order, countries) => {
 
     let territoryValue = '';
-    order.territoryTransportation.forEach((item) => {
-        territoryValue += `${item.stateId.name} ${item.firstCode}-${item.lastCode} `
+    order.territoryTransportation.forEach(({customHouseFeeId, firstCode, lastCode}) => {
+        territoryValue += `${customHouseFeeId.countryId.name} ${firstCode}-${lastCode} \n`;
     });
-
+    
     return {
         'Дата выдачи': order.dateIssue,
         '': territoryValue,
@@ -21,7 +21,7 @@ exports.rowOrderItem = (order, states) => {
         'Кол-во вагонов': order.carriageCount,
         'Возврат': order.carriageReturn,
         'Объем': order.capacity,
-        ...this.statesToObj(states, order),
+        ...this.countriesToObj(countries, order),
         'Обш.ставка': 0,
         'Доп.сбор': order.additionalFee,
         'Цена за тонну': 0,
@@ -72,7 +72,16 @@ exports.orderChangedProperties = (order, body) => {
 
             } else if (value === 'territoryTransportation') {
                 const territoryTransportation = body[value];
-                const cTerritoryTransportation = order[value].map(({stateId, firstCode, lastCode}) => ({stateId: stateId.toString(), firstCode, lastCode}));
+                const cTerritoryTransportation = order[value]
+                .map(({
+                    customHouseFeeId, 
+                    firstCode, 
+                    lastCode
+                }) => ({
+                    customHouseFeeId: customHouseFeeId.toString(), 
+                    firstCode, 
+                    lastCode
+                }));
 
                 if (JSON.stringify(territoryTransportation) !== JSON.stringify(cTerritoryTransportation)) 
                     properties.push(value);
@@ -92,19 +101,16 @@ exports.orderChangedProperties = (order, body) => {
     return properties.filter((value, index, items) => items.indexOf(value) === index);
 };
 
-exports.statesToObj = (states, order) => {
+exports.countriesToObj = (countries, order) => {
     const { territoryTransportation } = order;
     
-    const stateObj =  states.reduce((pv, cv, ci) => {
-        const cost = territoryTransportation.find(({stateId}) => stateId.name === cv.name)?.stateCost;
+    const countriesToObj = countries.reduce((pv, cv) => {
+        const customHouseFee = territoryTransportation.find(({customHouseFeeId}) => customHouseFeeId.countryId._id.toString() === cv._id.toString());
+        const cvo = {[cv.name]: customHouseFee ? customHouseFee.customHouseFeeId.price : 0};
+        return { ...pv, ...cvo };
+    }, {});
 
-        const initialPvCost = ci === 1 && territoryTransportation.find(({stateId}) => stateId.name === pv.name)?.stateCost;
-        const initialPv = ci === 1 ? {[pv.name]: initialPvCost} : {...pv};
-
-        return { ...initialPv, [cv.name]: cost }
-    });
-
-    return stateObj;
+    return countriesToObj;
 };
 
 exports.toAlpha = (num) => {
